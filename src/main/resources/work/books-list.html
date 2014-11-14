@@ -1,23 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="" />
   </head>
   <body>
 
-    <ul>
-      <c:forEach items=""
-      <li>a</li>
-      <li>b</li>
-      <li>c</li>
-    </ul>
+    <h1>Books</h1>
 
-    <script src=""></script>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Publisher</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody th:remove="all-but-first">
+        <tr th:each="book, itr : ${books}">
+          <td th:text="${book}">The title</td>
+          <td th:text="TODO">The author</td>
+          <td th:text="TODO">The publisher</td>
+          <td><a href="details" th:href="books">details</a>&nbsp;<button class="delete-btn" data-id="1" th:attr="data-id=${itr.index}">x</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <form action="hoge" th:action="@{/books}" method="post">
+      <input type="text" name="title" />
+      <input type="submit" />
+    </form>
+
+    <script src="vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="js/books-list.js" th:src="@{/js/books-list.js}"></script>
   </body>
 </html>
