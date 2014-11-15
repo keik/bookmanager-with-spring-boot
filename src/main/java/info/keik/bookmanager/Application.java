@@ -21,7 +21,7 @@ public class Application {
 
     @RequestMapping("/")
     public String welcome() {
-        return "index";
+        return "index.html";
     }
 
     @Bean

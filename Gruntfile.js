@@ -123,7 +123,8 @@ module.exports = function(grunt) {
 
     recess: {
       options: {
-        noOverqualifying: false
+        noOverqualifying: false,
+        noUniversalSelectors: false
       },
 
       lint: {

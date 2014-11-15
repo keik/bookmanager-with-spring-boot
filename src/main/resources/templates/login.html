@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title th:text="#{app.name}"></title>
+    <title th:text="'Log in | ' +  #{app.name}"></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -16,11 +16,7 @@
     </header>
 
     <div class="container">
-      <form action="books-list.html" method="get"
-            th:action="@{/books}">
-        <label for="query"></label><input id="query" type="text" />
-        <input class="btn" type="submit" value="search" />
-      </form>
+      login
     </div>
 
     <footer th:include="commons/footer.html">
@@ -28,6 +24,5 @@
     </footer>
 
     <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
-    <script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
   </body>
 </html>

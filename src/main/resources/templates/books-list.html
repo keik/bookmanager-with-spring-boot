@@ -3,41 +3,49 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
+    <title th:text="'Search results | ' + #{app.name}"></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="" />
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
   </head>
   <body>
 
-    <h1>Books</h1>
+    <header th:include="commons/header.html">
+      <!--#include virtual="commons/header.html" -->
+    </header>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Publisher</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody th:remove="all-but-first">
-        <tr th:each="book, itr : ${books}">
-          <td th:text="${book}">The title</td>
-          <td th:text="TODO">The author</td>
-          <td th:text="TODO">The publisher</td>
-          <td><a href="details" th:href="books">details</a>&nbsp;<button class="delete-btn" data-id="1" th:attr="data-id=${itr.index}">x</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+          <tr th:each="book, itr : ${books}">
+            <td th:text="${book}">The title</td>
+            <td th:text="TODO">The author</td>
+            <td th:text="TODO">The publisher</td>
+            <td><a href="details" th:href="books">details</a>&nbsp;<button class="btn delete-btn" data-id="1" th:attr="data-id=${itr.index}">x</button></td>
+          </tr>
+        </tbody>
+      </table>
 
-    <form action="hoge" th:action="@{/books}" method="post">
-      <input type="text" name="title" />
-      <input type="submit" />
-    </form>
+      <form action="hoge" th:action="@{/books}" method="post">
+        <input type="text" name="title" />
+        <input class="btn" type="submit" />
+      </form>
+    </div>
 
-    <script src="vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
-    <script src="js/books-list.js" th:src="@{/js/books-list.js}"></script>
+    <footer th:include="commons/footer.html">
+      <!--#include virtual="commons/footer.html" -->
+    </footer>
+
+    <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="../static/js/main.js" th:src="@{/js/books-list.js}"></script>
   </body>
 </html>

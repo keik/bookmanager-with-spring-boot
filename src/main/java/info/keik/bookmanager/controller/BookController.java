@@ -25,7 +25,7 @@ public class BookController {
     @RequestMapping(method = RequestMethod.GET)
     public String show(Model model) {
         model.addAttribute("books", books);
-        return "books-list";
+        return "books-list.html";
     }
 
     @RequestMapping(method = RequestMethod.POST)
