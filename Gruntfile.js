@@ -12,9 +12,7 @@ module.exports = function(grunt) {
     // env
 
     dir: {
-      src: 'src/main/resources/work/',
-      dist: 'src/main/resources/templates/',
-      docs: 'src/main/resources/docs/',
+      templates: 'src/main/resources/templates/',
       assets: 'src/main/resources/static/'
     },
 
@@ -35,7 +33,7 @@ module.exports = function(grunt) {
       },
 
       less: {
-        files: ['<%= dir.src %>less/**/*.less'],
+        files: ['<%= dir.assets %>less/**/*.less'],
         tasks: ['recess:lint', 'recess:compile']
       }
 
@@ -49,7 +47,7 @@ module.exports = function(grunt) {
       },
       bower: {
         options: {
-          targetDir: '<%= dir.src %>vendor/',
+          targetDir: '<%= dir.assets %>vendor/',
           production: false
         }
       }
@@ -59,7 +57,7 @@ module.exports = function(grunt) {
       options: {
         port: 9000,
         hostname: '0.0.0.0',
-        base: ['src']
+        base: ['src/main/resources']
       },
       dev: {
         options: {
@@ -99,7 +97,7 @@ module.exports = function(grunt) {
         tests : ['touch'],
         parseFiles : true,
         files : {
-          src: ['<%= dir.src %>js/**/*.js', '<%= dir.src %>css/**/*.css']
+          src: ['<%= dir.assets %>js/**/*.js', '<%= dir.assets %>css/**/*.css']
         }
       }
     },
@@ -116,7 +114,7 @@ module.exports = function(grunt) {
         src: ['Gruntfile.js' ]
       },
       js: {
-        src: ['<%= dir.src %><%= dir.assets %>js/**/*.js']
+        src: ['<%= dir.assets %>js/**/*.js']
       }
     },
 
@@ -129,7 +127,7 @@ module.exports = function(grunt) {
       },
 
       lint: {
-        src: ['<%= dir.src %>less/main.less']
+        src: ['<%= dir.assets %>less/main.less']
       },
 
       compile: {
@@ -138,9 +136,9 @@ module.exports = function(grunt) {
         },
         files: [
           {
-            '<%= dir.src %>css/style.css': [
-              '<%= dir.src %>less/main.less',
-              '<%= dir.src %>less/icomoon.less'
+            '<%= dir.assets %>css/style.css': [
+              '<%= dir.assets %>less/main.less',
+              '<%= dir.assets %>less/icomoon.less'
             ]
           }
         ]
@@ -151,74 +149,11 @@ module.exports = function(grunt) {
     // dist
 
     clean: {
-      dev: ['<%= dir.src %>css/', '<%= dir.src %>vendor/'],
-      dist: ['<%= dir.dist %>', '<%= dir.assets %>'],
-      docs: ['<%= dir.docs %>']
-    },
-
-    htmlmin: {
-      dist: {
-        options: {
-          removeComments: false,
-          collapseWhitespace: false
-        },
-        expand: true,
-        cwd: '<%= dir.dist %>',
-        src: ['**/*.html'],
-        dest: '<%= dir.dist %>'
-      }
-    },
-
-    cssmin: {
-      dist: {
-        expand: true,
-        cwd: '<%= dir.assets %>',
-        src: ['**/*.css'],
-        dest: '<%= dir.assets %>'
-      }
-    },
-
-    uglify: {
-      options: {
-        preserveComments: 'some'
-      },
-      dist: {
-        expand: true,
-        cwd: '<%= dir.src %>',
-        src: ['**/*.js'],
-        dest: '<%= dir.assets %>'
-      }
-    },
-
-    copy: {
-      html: {
-        expand: true,
-        cwd: '<%= dir.src %>',
-        src: ['**/**.html'],
-        dest: '<%= dir.dist %>'
-      },
-      assets: {
-        expand: true,
-        cwd: '<%= dir.src %>',
-        src: ['css/**', 'img/**', 'fonts/**', 'js/**', 'json/**'],
-        dest: '<%= dir.assets %>'
-      }
-    },
-
-    jsdoc: {
-      dist: {
-        src: ['<%= dir.src %>js/**/*.js'],
-        dest: '<%= dir.docs %>js'
-      }
+      dev: ['<%= dir.assets %>css/', '<%= dir.assets %>vendor/']
     }
 
   });
 
   grunt.registerTask('default', ['connect:dev', 'watch']);
-  grunt.registerTask('install', ['bower', 'recess', 'modernizr'/*, 'jsdoc'*/]);
-  grunt.registerTask('build', ['clean', 'bower', 'recess', 'modernizr', 'copy:html', 'copy:assets'/*, 'htmlmin'*/, 'cssmin', 'uglify'/*, 'jsdoc'*/]);
-
-  // build test
-  grunt.registerTask('test', ['install', 'build']);
-
+  grunt.registerTask('install', ['bower', 'recess', 'modernizr']);
 };

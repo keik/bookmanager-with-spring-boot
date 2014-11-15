@@ -1,6 +1,4 @@
 target
 node_modules
-src/main/resources/static
-src/main/resources/templates
-src/main/resources/work/css
-src/main/resources/work/vendor
+src/main/resources/static/css
+src/main/resources/static/vendor
