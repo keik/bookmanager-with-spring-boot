@@ -1,19 +1,25 @@
 # Bookmanager w/ Spring Boot
 
 
-## Frontend build
+## Developing frontend
+
+First of all,
 
 ```
+[project-root] $ npm install
 [project-root] $ grunt install
-[project-root] $ grunt build
 ```
 
-This process will generate resourecs/{static,templates} from resoureces/work.
+And then,
 
-In the default, Spring will refer to `classpath:work` for view-templates. You can change where to refer by editting `spring.thymeleaf.prefix` in application.properties.
+```
+[project-root] $ grunt 
+```
+
+This process watches the change of files in resourecs/{static,templates}, and then compile LESSs and lint JavaScripts automatically.
 
 
-## Run
+## Run embedded Tomcat
 
 ```
 [project-root] $ MAVEN_OPTS="-javaagent:springloaded-1.2.1.jar -noverify" mvn spring-boot:run
