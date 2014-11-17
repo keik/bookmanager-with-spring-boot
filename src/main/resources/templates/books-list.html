@@ -27,17 +27,30 @@
         </thead>
         <tbody th:remove="all-but-first">
           <tr th:each="book, itr : ${books}">
-            <td th:text="${book}">The title</td>
-            <td th:text="TODO">The author</td>
-            <td th:text="TODO">The publisher</td>
-            <td><a href="details" th:href="books">details</a>&nbsp;<button class="btn delete-btn" data-id="1" th:attr="data-id=${itr.index}">x</button></td>
+            <td th:text="${book.title}">The title</td>
+            <td th:text="${book.author}">The author</td>
+            <td th:text="${book.publisher}">The publisher</td>
+            <td><a class="btn" href="details" th:href="'books/' + ${book.id}">details</a>&nbsp;<button class="btn delete-btn" data-id="1" th:attr="data-id=${itr.index}">x</button></td>
           </tr>
         </tbody>
       </table>
 
       <form action="hoge" th:action="@{/books}" method="post">
-        <input type="text" name="title" />
-        <input class="btn" type="submit" />
+        <ul>
+          <li>
+            <label for="title">Title</label><input id="title" type="text" placeholder="Title" name="title" />
+          </li>
+          <li>
+            <label for="author">Author</label><input id="author" type="text" placeholder="Author" name="author" />
+          </li>
+          <li>
+
+            <label for="publisher">Publisher</label><input id="publisher" type="text" placeholder="Publisher" name="publisher" />
+          </li>
+          <li>
+            <label></label><input class="btn" type="submit" />
+          </li>
+        </ul>
       </form>
     </div>
 

@@ -7,6 +7,7 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="stylesheet" href="../static/fonts/style.css" th:href="@{/fonts/style.css}" />
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
   </head>
   <body>
@@ -16,11 +17,12 @@
     </header>
 
     <div class="container">
-      <form action="books-list.html" method="get"
-            th:action="@{/books}">
-        <label for="query"></label><input id="query" type="text" />
-        <input class="btn" type="submit" value="search" />
-      </form>
+
+        <form class="search-form" action="books-list.html" method="get"
+              th:action="@{/books}">
+          <label for="query" class="sr-only">search</label><input id="query" type="text" /><button class="btn" type="submit"><span class="icon icon-search"></span></button>
+        </form>
+
     </div>
 
     <footer th:include="commons/footer.html">
