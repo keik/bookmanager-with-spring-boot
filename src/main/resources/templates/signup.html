@@ -7,6 +7,7 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="stylesheet" href="../static/fonts/style.css" th:href="@{/fonts/style.css}" />
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
   </head>
   <body>
@@ -16,7 +17,23 @@
     </header>
 
     <div class="container">
-      signup
+      <form class="login-form" action="index.html" method="post"
+            th:action="@{/users}">
+        <ul>
+          <li>
+            <label for="username">Username</label><input id="username" type="text" placeholder="Username" />
+          </li>
+          <li>
+            <label for="email">Email</label><input id="email" type="text" placeholder="Email" />
+          </li>
+          <li>
+            <label for="password">Password</label><input id="password" type="password" placeholder="password" />
+          </li>
+          <li>
+            <label></label><input class="btn" type="submit" value="Sign up" />
+          </li>
+        </ul>
+      </form>
     </div>
 
     <footer th:include="commons/footer.html">

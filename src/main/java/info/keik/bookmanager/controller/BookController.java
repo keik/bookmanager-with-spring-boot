@@ -28,10 +28,11 @@ public class BookController {
     BookService bookService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String show(Model model, @RequestParam(required = false) String q) {
+    public String show(Model model, @RequestParam(value = "q", required = false) String q) {
         logger.info("show");
         if (q != null) {
             model.addAttribute("books", bookService.findBooksByTitle(q));
+            model.addAttribute("q", q);
         } else {
             model.addAttribute("books", bookService.findAllBooks());
         }

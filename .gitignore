@@ -1,3 +1,7 @@
+.jcrc
+.classpath
+.project
+.settings
 target
 node_modules
 src/main/resources/static/css

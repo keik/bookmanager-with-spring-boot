@@ -14,7 +14,7 @@ a {
 }
 
 
-// sizing
+// font sizing
 
 html {
   font-size: 62.5%;
@@ -36,8 +36,27 @@ h5 {
   font-size: 1.4em;
 }
 
-p, nav, table, form {
+p, ul, ol, table, form {
   font-size: 1.4em;
+}
+
+form {
+  ul, ol {
+    font-size: 1em;
+  }
+}
+
+
+// content boxes margin
+
+p, ul, ol, table, form {
+  padding: 0;
+  margin: 0 0 14px 0;
+}
+
+li {
+  padding: 0;
+  margin: 0;
 }
 
 
@@ -49,4 +68,10 @@ p, nav, table, form {
 
 .sr-only {
   display: none;
+}
+
+hr {
+  height: 1px;
+  background-color: #ccc;
+  border: 0;
 }

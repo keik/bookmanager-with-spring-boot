@@ -1,17 +1,48 @@
 package info.keik.bookmanager.model;
 
-public class Book {
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "BOOK")
+public class Book implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue
     private Integer id;
 
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String author;
+
+    @Column(nullable = false)
     private String publisher;
+
+    public Book() {}
 
     public Book(String title, String author, String publisher) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
+    }
+
+    @Override
+    public String toString() {
+        return getId() + "," + getTitle() + "," + getAuthor() + "," + getPublisher();
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getTitle() {

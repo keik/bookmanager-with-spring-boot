@@ -11,7 +11,7 @@ form ul {
 
   label {
     display: inline-block;
-    min-width: 80px;
+    min-width: 160px;
     margin-right: 24px;
     text-align: right;
   }
@@ -24,9 +24,12 @@ form button {
 
 input {
   min-height: 32px;
+  margin: 0;
+  vertical-align: middle;
   outline: none;
 
-  &[type=text] {
+  &[type=text], &[type=password] {
+    min-width: 200px;
     padding: 4px 8px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -39,4 +42,8 @@ input {
       0 0 4px 0 rgba(0, 100, 255, 0.5);
     }
   }
+}
+
+input[type=checkbox] ~ label {
+  font-weight: normal;
 }

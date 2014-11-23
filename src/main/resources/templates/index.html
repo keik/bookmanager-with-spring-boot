@@ -18,10 +18,10 @@
 
     <div class="container">
 
-        <form class="search-form" action="books-list.html" method="get"
-              th:action="@{/books}">
-          <label for="query" class="sr-only">search</label><input id="query" type="text" /><button class="btn" type="submit"><span class="icon icon-search"></span></button>
-        </form>
+      <form class="search-form" action="books-list.html" method="get"
+            th:action="@{/books}">
+        <label for="query" class="sr-only">search</label><input id="query" type="text" name="q" /><button class="btn" type="submit"><span class="icon icon-search"></span></button>
+      </form>
 
     </div>
 
