@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import info.keik.bookmanager.model.Book;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, Integer> {
+public interface BooksRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findByTitleContaining(String title);
     List<Book> findByPublisher(String publisher);

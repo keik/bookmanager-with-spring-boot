@@ -19,10 +19,10 @@ import info.keik.bookmanager.model.Book;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-public class BookServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class BooksServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
-    BookService sut;
+    BooksService sut;
 
     @Before
     public void setup() {

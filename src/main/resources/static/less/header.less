@@ -5,36 +5,40 @@ header {
   border-bottom: 1px solid #ddd;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
 
-  .container {
+  > .container {
     height: 100%;
+
+    > nav {
+      float: right;
+      height: 100%;
+
+      > ul {
+        display: inline-table;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+
+        > li {
+          display: table-cell;
+          padding-left: 12px;
+          vertical-align: middle;
+
+          > a {
+            color: #444;
+          }
+        }
+      }
+    }
   }
 
   h1 {
     float: left;
+
     a {
+      display: table-cell;
+      height: 80px;
       color: #444;
-    }
-  }
-
-  nav {
-    float: right;
-    height: 100%;
-
-    ul {
-      display: inline-table;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-
-      li {
-        display: table-cell;
-        padding-left: 12px;
-        vertical-align: middle;
-      }
-    }
-
-    a {
-      color: #3A79CD;
+      vertical-align: middle;
     }
   }
 }

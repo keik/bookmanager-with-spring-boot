@@ -9,45 +9,54 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import info.keik.bookmanager.domain.BookRepository;
+import info.keik.bookmanager.domain.BooksRepository;
 import info.keik.bookmanager.model.Book;
 
 @Service
-public class BookServiceImpl implements BookService {
+public class BooksServiceImpl implements BooksService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BooksServiceImpl.class);
 
     @Autowired
-    private BookRepository bookRepository;
+    private BooksRepository booksRepository;
 
     @Override
     public void addBook(Book book) {
         logger.info("addBook");
-        bookRepository.save(book);
+        booksRepository.save(book);
     }
 
     @Override
     public void deleteBook(int id) {
         logger.info("deleteBook");
-        bookRepository.delete(id);
+        booksRepository.delete(id);
+    }
+
+    @Override
+    public void updateBook(Book book) {
+        Book target = booksRepository.findOne(book.getId());
+        if (target == null) {
+            throw new RuntimeException("hoho");
+        }
+        booksRepository.save(book);
     }
 
     @Override
     public List<Book> findAllBooks() {
         logger.info("findAllBooks");
 
-        return bookRepository.findAll();
+        return booksRepository.findAll();
     }
 
     @Override
     public Book findBookById(int id) {
         logger.info("findBookById");
-        return bookRepository.getOne(id);
+        return booksRepository.getOne(id);
     }
 
     @Override
     public List<Book> findBooksByTitle(String query) {
         logger.info("findBooksByTitle");
-        return bookRepository.findByTitleContaining(query);
+        return booksRepository.findByTitleContaining(query);
     }
 }

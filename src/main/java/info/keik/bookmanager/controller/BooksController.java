@@ -16,27 +16,49 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import info.keik.bookmanager.model.Book;
-import info.keik.bookmanager.service.BookService;
+import info.keik.bookmanager.service.BooksService;
 
 @Controller
 @RequestMapping("/books")
-public class BookController {
+public class BooksController {
 
-    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+    private static final Logger logger = LoggerFactory.getLogger(BooksController.class);
 
     @Autowired
-    BookService bookService;
+    BooksService booksService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String show(Model model, @RequestParam(value = "q", required = false) String q) {
         logger.info("show");
         if (q != null) {
-            model.addAttribute("books", bookService.findBooksByTitle(q));
+            model.addAttribute("books", booksService.findBooksByTitle(q));
             model.addAttribute("q", q);
         } else {
-            model.addAttribute("books", bookService.findAllBooks());
+            model.addAttribute("books", booksService.findAllBooks());
         }
-        return "books-list.html";
+        return "books-index.html";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable("id") int id, Model model) {
+        logger.trace("show");
+        Book book = booksService.findBookById(id);
+        model.addAttribute("book", book);
+        return "book-show.html";
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public String new_(Model model) {
+        logger.trace("new_");
+        return "book-new.html";
+    }
+
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String edit(@PathVariable("id") int id, Model model) {
+        logger.trace("edit");
+        Book book = booksService.findBookById(id);
+        model.addAttribute("book", book);
+        return "book-edit.html";
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -46,28 +68,28 @@ public class BookController {
                          @RequestParam("publisher") String publisher
                          ) {
         logger.trace("create");
-        bookService.addBook(new Book(title, author, publisher));
+        booksService.addBook(new Book(title, author, publisher));
         return "redirect:/books";
     }
 
-    @RequestMapping(method = RequestMethod.POST, params = "method=put")
-    public String update() {
-        logger.trace("update");
-        // TODO
-        return "update book";
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST, params = "method=put")
+    public String update(Book book) {
+        logger.trace("update: " + book.toString());
+        booksService.updateBook(book);
+        return "redirect:/books";
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "method=delete")
     public String deleteWithPost(Model model, @RequestParam("id") int id) {
         logger.trace("deleteWithPost");
-        bookService.deleteBook(id);
+        booksService.deleteBook(id);
         return "redirect:/books";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public @ResponseBody void delete(@PathVariable("id") int id) {
         logger.trace("delete");
-        bookService.deleteBook(id);
+        booksService.deleteBook(id);
     }
 
 }

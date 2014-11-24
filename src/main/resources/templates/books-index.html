@@ -17,8 +17,8 @@
     </header>
 
     <div class="container">
-      <section class="side">
 
+      <section class="side">
         <section>
           <h2><span class="icon icon-search"></span> Search</h2>
           <form action="books-list.html" method="get"
@@ -28,12 +28,18 @@
         </section>
 
         <hr />
-
       </section>
+
       <section class="contents">
+        <p sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+          <a href="book-new.html" th:href="@{/books/new}" class="btn" style="text-align: left"><span class="icon icon-plus"></span> Add a new book</a>
+          <button class="btn btn-warning delete-btn" style="float: right;" onclick="alert('Not implemented'); return false;"><span class="icon icon-remove"></span> Delete selections</button>
+        </p>
+
         <table>
           <thead>
             <tr>
+              <th></th>
               <th>Title</th>
               <th>Author</th>
               <th>Publisher</th>
@@ -43,18 +49,11 @@
           </thead>
           <tbody th:remove="all-but-first">
             <tr th:each="book, itr : ${books}">
-              <td th:text="${book.title}">The title</td>
+              <td><input type="checkbox" /></td>
+              <td><a href="details" th:href="'books/' + ${book.id}"><span th:remove="tag" th:text="${book.title}">The title</span></a></td>
               <td th:text="${book.author}">The author</td>
               <td th:text="${book.publisher}">The publisher</td>
               <td style="text-align: center"><span class="label label-disabled">on loan</span></td>
-              <td><a class="btn" href="details" th:href="'books/' + ${book.id}">details</a> <button class="btn delete-btn" data-id="1" th:attr="data-id=${book.id}">x</button></td>
-            </tr>
-            <tr>
-              <td>The title</td>
-              <td>The author</td>
-              <td>The publisher</td>
-              <td style="text-align: center"><span class="label label-info">available</span></td>
-              <td><a class="btn" href="details">details</a> <button class="btn delete-btn" data-id="1">x</button></td>
             </tr>
           </tbody>
         </table>
@@ -67,6 +66,7 @@
     </footer>
 
     <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="../static/js/main.js" th:src="@{/js/ui.js}"></script>
     <script src="../static/js/main.js" th:src="@{/js/books-list.js}"></script>
   </body>
 </html>

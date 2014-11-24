@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title th:text="'Log in | ' +  #{app.name}"></title>
+    <title th:text="'Edit a book | ' + #{app.name}"></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -18,21 +18,22 @@
 
     <div class="container">
 
-      <form class="centered-form" action="index.html" th:action="@{/session}" method="post">
+      <form class="centered-form" action="books-index.html" th:action="@{'/books/' + ${book.id}(method=put)}" method="post">
         <section>
-          <h3>Log in</h3>
+          <h3>Edit a book</h3>
           <ul>
             <li>
-              <label for="id">Username or Email</label><input id="id" type="text" name="id" placeholder="Username or Email" />
+              <label for="title">Title</label><input id="title" type="text" placeholder="Title" name="title" th:value="${book.title}" />
             </li>
             <li>
-              <label for="password">Password</label><input id="password" type="password" name="password" placeholder="password" />
+              <label for="author">Author</label><input id="author" type="text" placeholder="Author" name="author" th:value="${book.author}" />
             </li>
             <li>
-              <label for="rememberme">Remember me</label><input id="rememberme" type="checkbox" name="rememberme" />
+
+              <label for="publisher">Publisher</label><input id="publisher" type="text" placeholder="Publisher" name="publisher" th:value="${book.publisher}" />
             </li>
             <li>
-              <label></label><input class="btn" type="submit" value="Log in" />
+              <label></label><input class="btn" type="submit" value="Update" />
             </li>
           </ul>
         </section>
@@ -46,5 +47,6 @@
 
     <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
     <script src="../static/js/main.js" th:src="@{/js/ui.js}"></script>
+    <script src="../static/js/main.js" th:src="@{/js/books-list.js}"></script>
   </body>
 </html>

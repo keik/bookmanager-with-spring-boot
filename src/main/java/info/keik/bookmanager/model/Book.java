@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "BOOK")
+@Table(name = "books")
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +43,10 @@ public class Book implements Serializable {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {

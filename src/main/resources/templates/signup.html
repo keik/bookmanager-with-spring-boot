@@ -17,23 +17,27 @@
     </header>
 
     <div class="container">
-      <form class="login-form" action="index.html" method="post"
-            th:action="@{/users}">
-        <ul>
-          <li>
-            <label for="username">Username</label><input id="username" type="text" placeholder="Username" />
-          </li>
-          <li>
-            <label for="email">Email</label><input id="email" type="text" placeholder="Email" />
-          </li>
-          <li>
-            <label for="password">Password</label><input id="password" type="password" placeholder="password" />
-          </li>
-          <li>
-            <label></label><input class="btn" type="submit" value="Sign up" />
-          </li>
-        </ul>
+
+      <form class="centered-form" action="index.html" th:action="@{/users}" method="post" onsubmit="alert('Not implemented'); return false;">
+        <section>
+          <h3>Sign up</h3>
+          <ul>
+            <li>
+              <label for="username">Username</label><input id="username" type="text" placeholder="Username" />
+            </li>
+            <li>
+              <label for="email">Email</label><input id="email" type="text" placeholder="Email" />
+            </li>
+            <li>
+              <label for="password">Password</label><input id="password" type="password" placeholder="password" />
+            </li>
+            <li>
+              <label></label><input class="btn" type="submit" value="Sign up" />
+            </li>
+          </ul>
+        </section>
       </form>
+
     </div>
 
     <footer th:include="commons/footer.html">
@@ -41,5 +45,6 @@
     </footer>
 
     <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="../static/js/main.js" th:src="@{/js/ui.js}"></script>
   </body>
 </html>
