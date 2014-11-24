@@ -28,8 +28,8 @@ public class BooksController {
     BooksService booksService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String show(Model model, @RequestParam(value = "q", required = false) String q) {
-        logger.info("show");
+    public String index(Model model, @RequestParam(value = "q", required = false) String q) {
+        logger.info("index");
         if (q != null) {
             model.addAttribute("books", booksService.findBooksByTitle(q));
             model.addAttribute("q", q);
@@ -80,15 +80,15 @@ public class BooksController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "method=delete")
-    public String deleteWithPost(Model model, @RequestParam("id") int id) {
-        logger.trace("deleteWithPost");
+    public String destroyWithPost(Model model, @RequestParam("id") int id) {
+        logger.trace("destroyWithPost");
         booksService.deleteBook(id);
         return "redirect:/books";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody void delete(@PathVariable("id") int id) {
-        logger.trace("delete");
+    public @ResponseBody void destroy(@PathVariable("id") int id) {
+        logger.trace("destroy");
         booksService.deleteBook(id);
     }
 
