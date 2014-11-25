@@ -7,6 +7,9 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+
     <link rel="stylesheet" href="../static/fonts/style.css" th:href="@{/fonts/style.css}" />
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
   </head>
@@ -33,7 +36,7 @@
       <section class="contents">
         <p sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
           <a href="book-new.html" th:href="@{/books/new}" class="btn" style="text-align: left"><span class="icon icon-plus"></span> Add a new book</a>
-          <button class="btn btn-warning delete-btn" style="float: right;" onclick="alert('Not implemented'); return false;"><span class="icon icon-remove"></span> Delete selections</button>
+          <button id="delete-btn" class="btn btn-warning" style="float: right;"><span class="icon icon-remove"></span> Delete selections</button>
         </p>
 
         <table>
@@ -49,7 +52,7 @@
           </thead>
           <tbody th:remove="all-but-first">
             <tr th:each="book, itr : ${books}">
-              <td><input type="checkbox" /></td>
+              <td><input type="checkbox" name="selected" th:value="${book.id}" /></td>
               <td><a href="details" th:href="'books/' + ${book.id}"><span th:remove="tag" th:text="${book.title}">The title</span></a></td>
               <td th:text="${book.author}">The author</td>
               <td th:text="${book.publisher}">The publisher</td>
@@ -58,7 +61,6 @@
           </tbody>
         </table>
       </section>
-
     </div>
 
     <footer th:include="commons/footer.html">

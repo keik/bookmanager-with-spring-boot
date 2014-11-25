@@ -33,6 +33,12 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
+    public void deleteBooks(Iterable<Book> books) {
+        logger.info("deleteBook");
+        booksRepository.delete(books);
+    }
+
+    @Override
     public void updateBook(Book book) {
         Book target = booksRepository.findOne(book.getId());
         if (target == null) {

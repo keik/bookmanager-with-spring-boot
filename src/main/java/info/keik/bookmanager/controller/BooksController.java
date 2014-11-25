@@ -86,10 +86,10 @@ public class BooksController {
         return "redirect:/books";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody void destroy(@PathVariable("id") int id) {
+    @RequestMapping(value = "/{ids}", method = RequestMethod.DELETE)
+    public @ResponseBody void destroy(@PathVariable("ids") String ids) {
         logger.trace("destroy");
-        booksService.deleteBook(id);
+        // booksService.deleteBook(id);
     }
 
 }
