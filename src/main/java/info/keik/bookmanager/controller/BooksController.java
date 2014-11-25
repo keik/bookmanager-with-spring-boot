@@ -40,7 +40,7 @@ public class BooksController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@PathVariable("id") Integer id, Model model) {
         logger.trace("show");
         Book book = booksService.findBookById(id);
         model.addAttribute("book", book);
@@ -54,7 +54,7 @@ public class BooksController {
     }
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String edit(@PathVariable("id") int id, Model model) {
+    public String edit(@PathVariable("id") Integer id, Model model) {
         logger.trace("edit");
         Book book = booksService.findBookById(id);
         model.addAttribute("book", book);
@@ -80,7 +80,7 @@ public class BooksController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "method=delete")
-    public String destroyWithPost(Model model, @RequestParam("id") int id) {
+    public String destroyWithPost(Model model, @RequestParam("id") Integer id) {
         logger.trace("destroyWithPost");
         booksService.deleteBook(id);
         return "redirect:/books";

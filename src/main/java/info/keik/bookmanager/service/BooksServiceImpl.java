@@ -26,7 +26,7 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public void deleteBook(int id) {
+    public void deleteBook(Integer id) {
         logger.info("deleteBook");
         booksRepository.delete(id);
     }
@@ -56,7 +56,7 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public Book findBookById(int id) {
+    public Book findBookById(Integer id) {
         logger.info("findBookById");
         return booksRepository.getOne(id);
     }
