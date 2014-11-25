@@ -89,7 +89,11 @@ public class BooksController {
     @RequestMapping(value = "/{ids}", method = RequestMethod.DELETE)
     public @ResponseBody void destroy(@PathVariable("ids") String ids) {
         logger.trace("destroy");
-        // booksService.deleteBook(id);
+        List<Integer> intIds = new ArrayList<Integer>();
+        for (String strId : ids.split(",")) {
+            intIds.add(Integer.valueOf(strId));
+        }
+        booksService.deleteBooks(intIds);
     }
 
 }

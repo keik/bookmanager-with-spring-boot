@@ -1,7 +1,6 @@
 package info.keik.bookmanager.service;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,15 +32,17 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public void deleteBooks(Iterable<Book> books) {
-        logger.info("deleteBook");
-        booksRepository.delete(books);
+    public void deleteBooks(List<Integer> ids) {
+        logger.info("deleteBooks");
+        booksRepository.deleteByIdIn(ids);
     }
 
     @Override
     public void updateBook(Book book) {
         Book target = booksRepository.findOne(book.getId());
         if (target == null) {
+
+            // TODO
             throw new RuntimeException("hoho");
         }
         booksRepository.save(book);

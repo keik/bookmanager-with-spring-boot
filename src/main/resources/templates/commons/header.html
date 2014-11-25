@@ -16,8 +16,8 @@
     </ul>
 
     <ul sec:authorize="!hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
-      <li><a href="login.html">Log in</a></li>
-      <li><a href="signup.html">Sign up</a></li>
+      <li><a href="login.html" th:href="@{/login}">Log in</a></li>
+      <li><a href="signup.html" th:href="@{/signup}">Sign up</a></li>
     </ul>
 
   </nav>

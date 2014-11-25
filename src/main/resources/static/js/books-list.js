@@ -3,33 +3,42 @@
 (function () {
 
   $(function init() {
-    $('#delete-btn').on('click', function (e) {
+    $('#delete-btn').on('click', handlers.onClickDeleteBtn);
+  });
+
+  var handlers = {
+
+    /**
+     * Delete selected books
+     */
+    onClickDeleteBtn: function (e) {
       e.preventDefault();
 
+      // Spring Security CSRF Protection
       var csrfHeader = $('meta[name=_csrf_header]').attr('content');
       var csrfToken = $('meta[name=_csrf]').attr('content');
       var headers = {};
       headers[csrfHeader] = csrfToken;
 
-      var selected = [];
-      $('[name=selected]:checked').each(function (idx, el) {
-        selected.add(el.value);
+      // collect selected book ids
+      var selectedIds = [];
+      var $selected = $('[name=selected]:checked').each(function (idx, el) {
+        selectedIds.push(el.value);
       });
 
       $.ajax({
-        url: 'books/' + selected.join(','),
+        url: 'books/' + selectedIds.join(','),
         method: 'delete',
         headers: headers
-      }).done(function (msg) {
-        console.log(msg);
+      }).done(function () {
+        $selected.closest('tr').remove();
       }).fail(function (xhr) {
-        console.log(xhr);
-      });
 
-      //$.ajax({
-      //  url: '/books'
-      //});
-    });
-  });
+        // TODO
+        console.log(xhr);
+        alert('Something wrong');
+      });
+    }
+  };
 
 }());
