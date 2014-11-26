@@ -63,11 +63,9 @@ public class BooksController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String create(Model model, @RequestParam("title") String title,
-            @RequestParam("author") String author,
-            @RequestParam("publisher") String publisher) {
+    public String create(Model model, Book book) {
         logger.trace("create");
-        booksService.addBook(new Book(title, author, publisher));
+        booksService.addBook(book);
         return "redirect:/books";
     }
 
