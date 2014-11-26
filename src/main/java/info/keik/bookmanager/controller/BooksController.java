@@ -1,34 +1,35 @@
 package info.keik.bookmanager.controller;
 
-import java.util.List;
-import java.util.ArrayList;
+import info.keik.bookmanager.model.Book;
+import info.keik.bookmanager.service.BooksService;
 
-import org.springframework.ui.Model;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import info.keik.bookmanager.model.Book;
-import info.keik.bookmanager.service.BooksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/books")
 public class BooksController {
 
-    private static final Logger logger = LoggerFactory.getLogger(BooksController.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(BooksController.class);
 
     @Autowired
     BooksService booksService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String index(Model model, @RequestParam(value = "q", required = false) String q) {
+    public String index(Model model,
+            @RequestParam(value = "q", required = false) String q) {
         logger.info("index");
         if (q != null) {
             model.addAttribute("books", booksService.findBooksByTitle(q));
@@ -62,11 +63,9 @@ public class BooksController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String create(Model model,
-                         @RequestParam("title") String title,
-                         @RequestParam("author") String author,
-                         @RequestParam("publisher") String publisher
-                         ) {
+    public String create(Model model, @RequestParam("title") String title,
+            @RequestParam("author") String author,
+            @RequestParam("publisher") String publisher) {
         logger.trace("create");
         booksService.addBook(new Book(title, author, publisher));
         return "redirect:/books";

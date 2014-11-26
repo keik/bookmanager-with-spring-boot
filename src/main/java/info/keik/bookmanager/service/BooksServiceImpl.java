@@ -1,20 +1,20 @@
 package info.keik.bookmanager.service;
 
+import info.keik.bookmanager.domain.BooksRepository;
+import info.keik.bookmanager.model.Book;
+
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import info.keik.bookmanager.domain.BooksRepository;
-import info.keik.bookmanager.model.Book;
 
 @Service
 public class BooksServiceImpl implements BooksService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BooksServiceImpl.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(BooksServiceImpl.class);
 
     @Autowired
     private BooksRepository booksRepository;

@@ -2,12 +2,11 @@ package info.keik.bookmanager.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Column;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "books")
@@ -28,7 +27,8 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private String publisher;
 
-    public Book() {}
+    public Book() {
+    }
 
     public Book(String title, String author, String publisher) {
         this.title = title;
@@ -38,7 +38,8 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return getId() + "," + getTitle() + "," + getAuthor() + "," + getPublisher();
+        return getId() + "," + getTitle() + "," + getAuthor() + ","
+                + getPublisher();
     }
 
     public Integer getId() {
