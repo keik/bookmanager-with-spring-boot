@@ -42,7 +42,7 @@ public class BooksController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Integer id, Model model) {
-        logger.trace("show");
+        logger.info("show");
         Book book = booksService.findBookById(id);
         model.addAttribute("book", book);
         return "book-show.html";
@@ -50,13 +50,13 @@ public class BooksController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String new_(Model model) {
-        logger.trace("new_");
+        logger.info("new_");
         return "book-new.html";
     }
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String edit(@PathVariable("id") Integer id, Model model) {
-        logger.trace("edit");
+        logger.info("edit");
         Book book = booksService.findBookById(id);
         model.addAttribute("book", book);
         return "book-edit.html";
@@ -64,28 +64,28 @@ public class BooksController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String create(Model model, Book book) {
-        logger.trace("create");
+        logger.info("create");
         booksService.addBook(book);
         return "redirect:/books";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, params = "method=put")
     public String update(Book book) {
-        logger.trace("update: " + book.toString());
+        logger.info("update: " + book.toString());
         booksService.updateBook(book);
         return "redirect:/books";
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "method=delete")
     public String destroyWithPost(Model model, @RequestParam("id") Integer id) {
-        logger.trace("destroyWithPost");
+        logger.info("destroyWithPost");
         booksService.deleteBook(id);
         return "redirect:/books";
     }
 
     @RequestMapping(value = "/{ids}", method = RequestMethod.DELETE)
     public @ResponseBody void destroy(@PathVariable("ids") String ids) {
-        logger.trace("destroy");
+        logger.info("destroy");
         List<Integer> intIds = new ArrayList<Integer>();
         for (String strId : ids.split(",")) {
             intIds.add(Integer.valueOf(strId));
