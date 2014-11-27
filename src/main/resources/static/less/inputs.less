@@ -17,33 +17,43 @@ form ul {
   }
 }
 
-form button {
+input[type=text], input[type=password] {
   min-height: 32px;
-  outline: none;
-}
-
-input {
-  min-height: 32px;
-  margin: 0;
   vertical-align: middle;
   outline: none;
-
-  &[type=text], &[type=password] {
-    min-width: 200px;
-    padding: 4px 8px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-
-    &:focus {
-      box-shadow:
-      inset 0 2px 4px 0 rgba(0, 0, 0, 0.08),
-      0 0 4px 0 rgba(0, 100, 255, 0.5);
-    }
-  }
 }
+
+
+// input boxes
 
 input[type=checkbox] ~ label {
   font-weight: normal;
+}
+
+input[type=text], input[type=password], textarea {
+  .input-for-string ()
+}
+
+textarea {
+  min-height: 64px;
+}
+
+
+.a () {
+  width: 100px;
+}
+
+.input-for-string () {
+  min-width: 200px;
+  padding: 4px 8px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+
+  &:focus {
+    box-shadow:
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.08),
+    0 0 4px 0 rgba(0, 100, 255, 0.5);
+  }
 }

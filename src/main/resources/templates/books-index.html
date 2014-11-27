@@ -36,7 +36,7 @@
       <section class="contents">
         <p sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
           <a href="book-new.html" th:href="@{/books/new}" class="btn" style="text-align: left"><span class="icon icon-plus"></span> Add a new book</a>
-          <button id="delete-btn" class="btn btn-warning" style="float: right;"><span class="icon icon-remove"></span> Delete selections</button>
+          <button id="delete-btn" class="btn btn-destroy" style="float: right;"><span class="icon icon-remove"></span> Delete selections</button>
         </p>
 
         <table>

@@ -1,28 +1,29 @@
 package info.keik.bookmanager.service;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.junit.Assert.assertThat;
+import info.keik.bookmanager.Application;
+import info.keik.bookmanager.model.Book;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import info.keik.bookmanager.Application;
-import info.keik.bookmanager.model.Book;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-public class BooksServiceTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class BooksServiceTest extends
+        AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
     BooksService sut;
@@ -79,13 +80,15 @@ public class BooksServiceTest extends AbstractTransactionalJUnit4SpringContextTe
         // setup
         Book book1 = new Book("aaa1", "bbb1", "ccc1");
         sut.addBook(book1);
-        assertThat(sut.findBookById(book1.getId()), is(samePropertyValuesAs(book1)));
+        assertThat(sut.findBookById(book1.getId()),
+                is(samePropertyValuesAs(book1)));
         // exercise
         Book newbook = new Book("xxx1", "yyy1", "zzz1");
         newbook.setId(book1.getId());
         sut.updateBook(newbook);
         // verify
-        assertThat(sut.findBookById(book1.getId()), is(samePropertyValuesAs(newbook)));
+        assertThat(sut.findBookById(book1.getId()),
+                is(samePropertyValuesAs(newbook)));
         // teardown
     }
 

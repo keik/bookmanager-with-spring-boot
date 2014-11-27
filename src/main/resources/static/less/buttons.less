@@ -23,21 +23,32 @@
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   }
 
-  &.btn-warning {
-    color: #fff;
-    background-color: rgb(192, 0, 0);
+  // colored buttons
 
-    &:focus {
-      box-shadow:
-      0 2px 4px 0 rgba(0, 0, 0, 0.08),
-      0 0 4px 0 rgba(0, 100, 255, 0.5);
-    }
-    &:hover {
-      background-color: rgb(160, 0, 0);
-    }
-    &:active {
-      box-shadow: inset 0 4px 6px 0 rgba(0, 0, 0, 0.40);
-    }
+  &.btn-destroy {
+    .btn-colored(rgb(192, 0, 0));
+  }
 
+  &.btn-create {
+    .btn-colored(rgb(0, 128, 255));
+  }
+
+}
+
+.btn-colored (@color) {
+  color: #fff;
+  background-color: @color;
+
+  &:focus {
+    opacity: 0.7;
+    box-shadow:
+    0 2px 4px 0 rgba(0, 0, 0, 0.08),
+    0 0 4px 0 rgba(0, 100, 255, 0.5);
+  }
+  &:hover {
+    opacity: 0.7;
+  }
+  &:active {
+    box-shadow: inset 0 4px 6px 0 rgba(0, 0, 0, 0.40);
   }
 }
