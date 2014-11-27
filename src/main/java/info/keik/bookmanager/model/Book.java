@@ -36,12 +36,6 @@ public class Book implements Serializable {
         this.publisher = publisher;
     }
 
-    @Override
-    public String toString() {
-        return getId() + "," + getTitle() + "," + getAuthor() + ","
-                + getPublisher();
-    }
-
     public Integer getId() {
         return id;
     }
