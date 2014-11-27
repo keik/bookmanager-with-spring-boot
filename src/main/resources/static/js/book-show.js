@@ -16,16 +16,23 @@
     onClickEditCommentBtn: function (e) {
       e.preventDefault();
 
-      var $comment = $(this).parent('.js-comment');
+      var $comment = $(this).closest('.js-comment');
       $comment.find('.js-edit-comment-form').show();
       $comment.find('.js-comment-content').hide();
     },
 
-
+    /**
+     * Close edit comment area
+     */
     onClickCancelCommentBtn: function (e) {
       e.preventDefault();
-      var $this = $(this);
-      $this.closest('.js-edit-comment-form').hide();
+
+      var $comment = $(this).closest('.js-comment');
+      var $form = $comment.find('.js-edit-comment-form').hide();
+      var $content = $comment.find('.js-comment-content').show();
+
+      // Restore form content value
+      $form[0].content.value = $content.text();
     },
 
     /**
@@ -35,7 +42,7 @@
       e.preventDefault();
 
       var $this = $(this);
-      var $comment = $this.parent('.js-comment');
+      var $comment = $this.closest('.js-comment');
 
       // Spring Security CSRF Protection
       var csrfHeader = $('meta[name=_csrf_header]').attr('content');

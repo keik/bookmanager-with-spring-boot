@@ -54,7 +54,7 @@
           </p>
           <form class="js-edit-comment-form vertical-box" style="display: none; width: 400px;"
                 action="dummy" th:action="@{'/books/' + ${book.id} + '/comments/' + ${comment.id}(method=put)}" method="post">
-            <textarea name="content"></textarea>
+            <textarea name="content" th:text="${comment.content}"></textarea>
             <button class="btn btn-create" type="submit">Update comment</button>
             <button class="btn js-cancel-comment-btn" type="button">Cancel</button>
           </form>
