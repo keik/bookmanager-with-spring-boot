@@ -1,0 +1,44 @@
+.bm-search-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -200px;
+
+  input[type=text] {
+    width: 340px;
+    height: 60px;
+    padding: 0 30px;
+    font-size: 24px;
+    border: 3px solid #ccc;
+    border-right: 0;
+    border-radius: 60px 0 0 60px;
+    outline: none;
+    box-shadow: none;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    color: #777;
+    background: none;
+    border: 3px solid #ccc;
+    border-left: 0;
+    border-radius: 0 60px 60px 0;
+    box-shadow: none;
+
+    > .icon {
+      font-size: 18px;
+      vertical-align: middle;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}

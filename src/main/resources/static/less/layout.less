@@ -1,15 +1,3 @@
-html {
-  height: 100%;
-}
-
-body {
-  position: relative;
-  height: auto;
-  min-height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
 .container {
   width: 1000px;
   margin: 0 auto;
@@ -24,52 +12,30 @@ body {
   margin-left: 240px;
 }
 
-.search-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  height: 60px;
-  margin-top: -30px;
-  margin-left: -200px;
+.side {
+  float: left;
+  width: 200px;
 
-  input[type=text] {
-    width: 340px;
-    height: 60px;
-    padding: 0 30px;
-    font-size: 24px;
-    border: 3px solid #ccc;
-    border-right: 0;
-    border-radius: 60px 0 0 60px;
-    outline: none;
-    box-shadow: none;
-    &:focus {
-      box-shadow: none;
-    }
+  h2 {
+    font-size: 1.3em;
   }
 
-  button {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-    color: #777;
-    background: none;
-    border: 3px solid #ccc;
-    border-left: 0;
-    border-radius: 0 60px 60px 0;
-    box-shadow: none;
+  p, ul, ol, table, form {
+    margin-left: 12px;
+  }
 
-    > .icon {
-      font-size: 18px;
-      vertical-align: middle;
-    }
-    &:focus {
-      box-shadow: none;
-    }
+  input[type=text] {
+    width: 100%;
+    min-width: initial;
+  }
+
+  ul {
+    list-style: none;
+
   }
 }
 
-.centered-form {
+.centered-box {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -88,5 +54,24 @@ body {
     padding-bottom: 6px;
     margin-bottom: 18px;
     border-bottom: 1px solid #aaa;
+  }
+}
+
+.vertical-box {
+  &:after {
+    display: table;
+    clear: both;
+    content: " ";
+  }
+
+  > input[type=text], input[type=password], textarea {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  > .btn, input[type=button], input[type=submit] {
+    float: right;
+    margin-bottom: 8px;
+    margin-left: 12px;
   }
 }

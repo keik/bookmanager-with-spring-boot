@@ -7,6 +7,9 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
+
     <link rel="stylesheet" href="../static/fonts/style.css" th:href="@{/fonts/style.css}" />
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
   </head>
@@ -20,19 +23,55 @@
 
       <section>
         <img style="float: left; width: 200px; height: 200px; background-color: #ccc; margin-right: 16px;" />
+
+        <p sec:authorize="hasAnyRole('ROLE_ADMIN')" style="float: right;">
+          <a href="book-edit.html" th:href="@{'/books/' + ${book.id} + '/edit'}" class="btn"><span class="icon icon-pencil"> Edit this book</span></a>
+        </p>
+
         <h2 class="book-title" th:text="${book.title}">The title</h2>
         <p class="book-authors">Authors: <span th:text="${book.author}">The author</span></p>
         <p class="book-publisher">Publisher: <span th:text="${book.publisher}">The publisher</span></p>
         <section>
           <h3>Description</h3>
           <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
         </section>
       </section>
-      <p>
-        <a href="book-edit.html" th:href="@{'/books/' + ${book.id} + '/edit'}" class="btn"><span class="icon icon-pencil"> Edit</span></a>
-      </p>
+
+      <section>
+        <h2>Comments</h2>
+        <p th:if="${#lists.size(book.comments)} == 0">
+          There aren't any comments.
+        </p>
+        <article class="js-comment" th:each="comment, itr : ${book.comments}" style="margin-bottom: 12px; border-bottom: 1px solid #ccc;">
+          <button class="btn js-edit-comment-btn" style="float: right;"><span class="icon icon-pencil"></span></button>
+          <p th:text="'{TODO display user name}'">
+            User name
+          </p>
+          <p class="js-comment-content" th:text="${comment.content}">
+            This is comments.
+          </p>
+          <form class="js-edit-comment-form vertical-box" style="display: none; width: 400px;"
+                action="dummy" th:action="@{'/books/' + ${book.id} + '/comments/' + ${comment.id}(method=put)}" method="post">
+            <textarea name="content" th:text="${comment.content}"></textarea>
+            <button class="btn btn-create" type="submit">Update comment</button>
+            <button class="btn js-cancel-comment-btn" type="button">Cancel</button>
+          </form>
+          <p>
+            Posted at <span th:text="${#calendars.format(comment.created, 'MMM d, YYYY, hh:mm')}">MMM d, YYYY, hh:mm</span>
+          </p>
+        </article>
+
+        <section>
+          <h3>Write comment</h3>
+          <form class="vertical-box" style="width: 400px"
+                action="dummy" th:action="@{'/books/' + ${book.id} + '/comments'}" method="post">
+            <textarea name="content"></textarea>
+            <input class="btn btn-create" type="submit" value="Post comment" style="float: right;" />
+          </form>
+        </section>
+      </section>
 
     </div>
 
@@ -41,7 +80,7 @@
     </footer>
 
     <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
-    <script src="../static/js/main.js" th:src="@{/js/ui.js}"></script>
-    <script src="../static/js/main.js" th:src="@{/js/books-list.js}"></script>
+    <script src="../static/js/ui.js" th:src="@{/js/ui.js}"></script>
+    <script src="../static/js/book-show.js" th:src="@{/js/book-show.js}"></script>
   </body>
 </html>

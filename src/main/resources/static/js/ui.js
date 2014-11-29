@@ -4,10 +4,10 @@
 
   $(function init() {
 
-    $(document).on('click', '.dropdown-btn', function (e) {
+    $(document).on('click', '[role=dropdown-button]', function (e) {
       e.preventDefault();
       var $this = $(this);
-      var $dropdownList = $('#' + $this.attr('aria-controls'));
+      var $dropdownList = $($this.attr('aria-controls'));
       if ($dropdownList.is(':hidden')) {
         var offset = $this.offset();
         $dropdownList
