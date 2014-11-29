@@ -1,5 +1,6 @@
 package info.keik.bookmanager.service;
 
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -12,9 +13,9 @@ import info.keik.bookmanager.model.Comment;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import org.hamcrest.beans.SamePropertyValuesAs;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,9 +29,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@Transactional
 public class CommentsServiceTest extends
         AbstractTransactionalJUnit4SpringContextTests {
+
+    @PersistenceContext
+    EntityManager em;
 
     @Autowired
     CommentsService sut;
@@ -59,11 +62,14 @@ public class CommentsServiceTest extends
         Comment comment = new Comment();
         comment.setContent("the comment");
         sut.addCommentToBook(book.getId(), comment);
+
+        em.flush();
+        em.clear();
+
         // verify
         List<Comment> comments = commentsRepository.findAll();
         assertThat(comments, hasSize(1));
-        assertThat(comments.get(0),
-                is(SamePropertyValuesAs.samePropertyValuesAs(comment)));
+        assertThat(comments.get(0).getContent(), is("the comment"));
         // teardown
     }
 
@@ -80,16 +86,19 @@ public class CommentsServiceTest extends
         newcomment.setId(comment.getId());
         newcomment.setContent("fixed comment");
         sut.updateComment(newcomment);
+
+        em.flush();
+        em.clear();
+
         // verify
-        System.out.println(book);
-        System.out.println(booksRepository.findAll());
-        System.out.println(booksService.findAllBooks());
-        assertThat(book.getComments().get(0).getContent(), is("fixed comment"));
+        Book updatedBook = booksService.findBookById(book.getId());
+        List<Comment> updatedComments = updatedBook.getComments();
+        assertThat(updatedComments, hasSize(1));
+        assertThat(updatedComments.get(0).getContent(), is("fixed comment"));
         // teardown
     }
 
     @Test
-    @Ignore
     public void IDで指定したコメントを削除できる() {
         // setup
         Book book = new Book("aaa", "bbb", "ccc");
@@ -99,9 +108,14 @@ public class CommentsServiceTest extends
         sut.addCommentToBook(book.getId(), comment);
         // exercise
         sut.deleteComment(comment.getId());
+
+        em.flush();
+        em.clear();
+
         // verify
-        List<Comment> comments = book.getComments();
-        assertThat(comments, empty());
+        Book updatedBook = booksService.findBookById(book.getId());
+        List<Comment> updatedComments = updatedBook.getComments();
+        assertThat(updatedComments, is(empty()));
         // teardown
     }
 
@@ -125,9 +139,14 @@ public class CommentsServiceTest extends
         ids.add(comment1.getId());
         ids.add(comment3.getId());
         sut.deleteComments(ids);
-        List<Comment> comments = book.getComments();
+
+        em.flush();
+        em.clear();
+
         // verify
-        assertThat(comments, is(hasSize(1)));
+        Book updatedBook = booksService.findBookById(book.getId());
+        List<Comment> updatedComments = updatedBook.getComments();
+        assertThat(updatedComments, is(hasSize(1)));
         // teardown
     }
 
