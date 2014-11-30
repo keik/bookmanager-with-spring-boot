@@ -1,6 +1,7 @@
 package info.keik.bookmanager.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -35,7 +39,11 @@ public class Book implements Serializable {
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @OrderBy(value = "created")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<Comment>();
+
+    @ManyToMany(targetEntity = Tag.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "books_tags", joinColumns = { @JoinColumn(name = "book_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id", referencedColumnName = "id") })
+    private List<Tag> tags = new ArrayList<Tag>();
 
     public Book() {
     }
@@ -89,6 +97,32 @@ public class Book implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void addTag(Tag tag) {
+        if (!getTags().contains(tag)) {
+            getTags().add(tag);
+        }
+        if (!tag.getBooks().contains(this)) {
+            tag.getBooks().add(this);
+        }
+    }
+
+    public void removeTag(Tag tag) {
+        if (getTags().contains(tag)) {
+            getTags().remove(tag);
+        }
+        if (tag.getBooks().contains(this)) {
+            tag.getBooks().remove(this);
+        }
     }
 
 }

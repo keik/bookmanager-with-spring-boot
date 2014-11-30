@@ -17,5 +17,5 @@ public interface BooksService {
 
     public Book findBookById(Integer id);
 
-    public List<Book> findBooksByTitle(String string);
+    public List<Book> findBooksByQuery(String string);
 }

@@ -129,8 +129,8 @@ public class BooksServiceTest extends
         sut.addBook(new Book("yyy1", "bbb1", "ccc1"));
         sut.addBook(new Book("yyy2", "bbb2", "ccc2"));
         // exercise
-        List<Book> actual = sut.findBooksByTitle("xxx");
-        List<Book> actual2 = sut.findBooksByTitle("xxx2");
+        List<Book> actual = sut.findBooksByQuery("xxx");
+        List<Book> actual2 = sut.findBooksByQuery("xxx2");
         // verify
         assertThat(actual, is(hasSize(2)));
         assertThat(actual2, is(hasSize(1)));
