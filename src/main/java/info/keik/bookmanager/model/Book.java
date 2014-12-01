@@ -41,7 +41,7 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private String publisher;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book")
     @OrderBy(value = "created")
     private List<Comment> comments = new ArrayList<Comment>();
 

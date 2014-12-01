@@ -29,7 +29,7 @@ public class Tag implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "tags")
     @JsonIgnore
     private Set<Book> books = new HashSet<Book>();
 

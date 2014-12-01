@@ -32,6 +32,9 @@ public class BooksServiceImpl implements BooksService {
     @Override
     @Transactional
     public void deleteBooks(List<Integer> ids) {
+        for (Integer id : ids) {
+            booksRepository.findOne(id).getTags().clear();
+        }
         booksRepository.deleteByIdIn(ids);
     }
 
