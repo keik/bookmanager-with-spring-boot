@@ -2,7 +2,9 @@ package info.keik.bookmanager.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,7 +45,7 @@ public class Book implements Serializable {
 
     @ManyToMany(targetEntity = Tag.class, cascade = CascadeType.ALL)
     @JoinTable(name = "books_tags", joinColumns = { @JoinColumn(name = "book_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id", referencedColumnName = "id") })
-    private List<Tag> tags = new ArrayList<Tag>();
+    private Set<Tag> tags = new HashSet<Tag>();
 
     public Book() {
     }
@@ -99,11 +101,11 @@ public class Book implements Serializable {
         this.comments = comments;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 

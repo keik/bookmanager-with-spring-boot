@@ -1,8 +1,9 @@
 package info.keik.bookmanager.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Tag implements Serializable {
     private String name;
 
     @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
-    private List<Book> books = new ArrayList<Book>();
+    private Set<Book> books = new HashSet<Book>();
 
     public Tag() {
     }
@@ -54,11 +55,11 @@ public class Tag implements Serializable {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
