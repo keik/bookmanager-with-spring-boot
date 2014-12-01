@@ -13,4 +13,5 @@ public interface CommentsRepository extends JpaRepository<Comment, Integer> {
 
     @Transactional
     void deleteByIdIn(List<Integer> ids);
+
 }

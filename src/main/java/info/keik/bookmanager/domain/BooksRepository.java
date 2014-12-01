@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface BooksRepository extends JpaRepository<Book, Integer> {
 
-	List<Book> findByTitleContaining(String title);
+    List<Book> findByTitleContaining(String title);
 
-	List<Book> findByPublisher(String publisher);
+    List<Book> findByPublisher(String publisher);
 
-	List<Book> findByAuthor(String author);
+    List<Book> findByAuthor(String author);
 
-	@Transactional
-	List<Book> deleteByIdIn(List<Integer> ids);
+    @Transactional
+    List<Book> deleteByIdIn(List<Integer> ids);
 
 }
