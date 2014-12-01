@@ -2,6 +2,7 @@ package info.keik.bookmanager.service;
 
 import info.keik.bookmanager.domain.BooksRepository;
 import info.keik.bookmanager.domain.TagsRepository;
+import info.keik.bookmanager.model.Book;
 import info.keik.bookmanager.model.Tag;
 
 import java.util.List;
@@ -24,26 +25,38 @@ public class TagsServiceImpl implements TagsService {
     }
 
     @Override
-    public void addTagToBook(Integer bookId, Tag tag) {
+    public Tag addTagToBook(Integer bookId, Tag tag) {
 
         // Sync
         Tag t = tagsRepository.findByName(tag.getName());
+        Book book = booksRepository.findOne(bookId);
+
         if (t == null) {
 
             // Create new tag
             t = tag;
+        } else if (t.getBooks().contains(book)) {
+
+            // Already tagged with the book.
+            return null;
         }
-        t.addBook(booksRepository.findOne(bookId));
-        tagsRepository.save(t);
+        t.addBook(book);
+        return tagsRepository.save(t);
     }
 
     @Override
-    public void deleteTagFromBook(Integer bookId, Tag tag) {
+    public Boolean deleteTagFromBook(Integer bookId, Tag tag) {
 
         // Sync
-        tag = tagsRepository.findOne(tag.getId());
-
-        tag.removeBook(booksRepository.findOne(bookId));
-        tagsRepository.save(tag);
+        Tag t = tagsRepository.findOne(tag.getId());
+        Book book = booksRepository.findOne(bookId);
+        if (t == null) {
+            return false;
+        } else if (!t.getBooks().contains(book)) {
+            return false;
+        }
+        t.removeBook(booksRepository.findOne(bookId));
+        tagsRepository.save(t);
+        return true;
     }
 }

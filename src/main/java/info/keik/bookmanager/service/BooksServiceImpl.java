@@ -4,7 +4,6 @@ import info.keik.bookmanager.domain.BooksRepository;
 import info.keik.bookmanager.domain.TagsRepository;
 import info.keik.bookmanager.model.Book;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;

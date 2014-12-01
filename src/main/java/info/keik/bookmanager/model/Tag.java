@@ -2,7 +2,6 @@ package info.keik.bookmanager.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +14,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tags")
 public class Tag implements Serializable {
@@ -25,10 +26,11 @@ public class Tag implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Book> books = new HashSet<Book>();
 
     public Tag() {

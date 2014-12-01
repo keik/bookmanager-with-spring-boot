@@ -20,6 +20,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "books")
 public class Book implements Serializable {
@@ -45,6 +47,8 @@ public class Book implements Serializable {
 
     @ManyToMany(targetEntity = Tag.class, cascade = CascadeType.ALL)
     @JoinTable(name = "books_tags", joinColumns = { @JoinColumn(name = "book_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id", referencedColumnName = "id") })
+    @JsonIgnore
+    @OrderBy("name ASC")
     private Set<Tag> tags = new HashSet<Tag>();
 
     public Book() {
