@@ -26,37 +26,50 @@ public class TagsServiceImpl implements TagsService {
 
     @Override
     public Tag addTagToBook(Integer bookId, Tag tag) {
-
-        // Sync
         Tag t = tagsRepository.findByName(tag.getName());
         Book book = booksRepository.findOne(bookId);
 
         if (t == null) {
 
-            // Create new tag
+            // Create a new tag
             t = tag;
-        } else if (t.getBooks().contains(book)) {
-
-            // Already tagged with the book.
-            return null;
+            t.addBook(book);
+            return tagsRepository.save(t);
         }
-        t.addBook(book);
-        return tagsRepository.save(t);
+
+        if (t.getBooks().contains(book)) {
+
+            // Already a book is tagged, nothing to update
+            return null;
+        } else {
+
+            // Add a tag to a book
+            t.addBook(book);
+            return tagsRepository.save(t);
+        }
     }
 
     @Override
     public Boolean deleteTagFromBook(Integer bookId, Tag tag) {
-
-        // Sync
         Tag t = tagsRepository.findOne(tag.getId());
         Book book = booksRepository.findOne(bookId);
+
         if (t == null) {
-            return false;
-        } else if (!t.getBooks().contains(book)) {
+
+            // No tag to delete
             return false;
         }
-        t.removeBook(booksRepository.findOne(bookId));
-        tagsRepository.save(t);
-        return true;
+
+        if (!t.getBooks().contains(book)) {
+
+            // A book isn't tagged, nothing to update
+            return false;
+        } else {
+
+            // Delete a tag from a book
+            t.removeBook(booksRepository.findOne(bookId));
+            tagsRepository.save(t);
+            return true;
+        }
     }
 }
