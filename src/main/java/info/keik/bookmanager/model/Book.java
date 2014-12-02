@@ -105,6 +105,15 @@ public class Book implements Serializable {
         this.comments = comments;
     }
 
+    public void addComment(Comment comment) {
+        if (!getComments().contains(comment)) {
+            getComments().add(comment);
+        }
+        if (comment.getBook() != this) {
+            comment.setBook(this);
+        }
+    }
+
     public Set<Tag> getTags() {
         return tags;
     }
