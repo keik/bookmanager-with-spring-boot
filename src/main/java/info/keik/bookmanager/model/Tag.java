@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,6 +33,10 @@ public class Tag implements Serializable {
     private Set<Book> books = new HashSet<Book>();
 
     public Tag() {
+    }
+
+    public Tag(String name) {
+        this.name = name;
     }
 
     @Override

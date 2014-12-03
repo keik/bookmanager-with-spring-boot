@@ -39,8 +39,9 @@ public class TagsController {
 
     @RequestMapping(value = "/books/{bookId}/tags/{id}", method = RequestMethod.DELETE)
     public @ResponseBody ResponseEntity<String> destroyRelationWithBook(
-            Model model, @PathVariable("bookId") Integer bookId, Tag tag) {
-        if (tagsService.deleteTagFromBook(bookId, tag)) {
+            Model model, @PathVariable("bookId") Integer bookId,
+            @PathVariable("id") Integer tagId) {
+        if (tagsService.deleteTagFromBook(bookId, tagId)) {
             return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<String>(HttpStatus.NOT_FOUND);

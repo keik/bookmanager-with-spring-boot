@@ -33,6 +33,6 @@ public interface TagsService {
      *            A tag to remove
      * @return true for success, or false for fail
      */
-    public Boolean deleteTagFromBook(Integer bookId, Tag tag);
+    public Boolean deleteTagFromBook(Integer bookId, Integer tagId);
 
 }

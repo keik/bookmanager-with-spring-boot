@@ -50,25 +50,25 @@ public class TagsServiceImpl implements TagsService {
     }
 
     @Override
-    public Boolean deleteTagFromBook(Integer bookId, Tag tag) {
-        Tag t = tagsRepository.findOne(tag.getId());
+    public Boolean deleteTagFromBook(Integer bookId, Integer tagId) {
+        Tag tag = tagsRepository.findOne(tagId);
         Book book = booksRepository.findOne(bookId);
 
-        if (t == null) {
+        if (tag == null) {
 
             // No tag to delete
             return false;
         }
 
-        if (!t.getBooks().contains(book)) {
+        if (!tag.getBooks().contains(book)) {
 
             // A book isn't tagged, nothing to update
             return false;
         } else {
 
             // Delete a tag from a book
-            t.removeBook(booksRepository.findOne(bookId));
-            tagsRepository.save(t);
+            tag.removeBook(book);
+            tagsRepository.save(tag);
             return true;
         }
     }
