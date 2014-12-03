@@ -26,7 +26,7 @@ public class BooksController {
     public String index(Model model,
             @RequestParam(value = "q", required = false) String q) {
         if (q != null) {
-            model.addAttribute("books", booksService.findBooksByTitle(q));
+            model.addAttribute("books", booksService.findBooksByQuery(q));
             model.addAttribute("q", q);
         } else {
             model.addAttribute("books", booksService.findAllBooks());

@@ -22,15 +22,48 @@
     <div class="container">
 
       <section>
-        <img style="float: left; width: 200px; height: 200px; background-color: #ccc; margin-right: 16px;" />
+        <img style="display: none; float: left; width: 200px; height: 200px; background-color: #ccc; margin-right: 16px;" />
 
         <p sec:authorize="hasAnyRole('ROLE_ADMIN')" style="float: right;">
           <a href="book-edit.html" th:href="@{'/books/' + ${book.id} + '/edit'}" class="btn"><span class="icon icon-pencil"> Edit this book</span></a>
         </p>
 
         <h2 class="book-title" th:text="${book.title}">The title</h2>
-        <p class="book-authors">Authors: <span th:text="${book.author}">The author</span></p>
-        <p class="book-publisher">Publisher: <span th:text="${book.publisher}">The publisher</span></p>
+
+        <section>
+          <h3 class="sr-only">Tags</h3>
+          <button id="js-edit-tags-btn" class="btn" style="float: right"><span class="icon icon-pencil"></span></button>
+          <ul id="js-tags" class="list-inline" th:remove="all-but-first">
+            <li class="js-tag" th:each="tag, itr : ${book.tags}">
+              <a href="books-index.html" th:href="@{'/books?q=tag:' + ${tag.name}}"><span class="icon icon-tags"></span> <span th:text="${tag.name}" th:remove="tag">Java</span></a>
+              <a class="js-form js-delete-tag-btn text-warn" th:href="'#js-delete-tag-form-' + ${tag.id}" style="display: none;"><span class="icon icon-cancel-circle"></span></a>
+              <form th:id="'js-delete-tag-form-' + ${tag.id}" th:action="@{'/books/' + ${book.id} + '/tags/' + ${tag.id}}" method="delete" style="display: none"></form>
+            </li>
+          </ul>
+          <script id="js-tag-template" type="text/template">
+            <li class="js-tag">
+              <a th:href="@{'/books?q=tag:' + '{%- name %}'}"><span class="icon icon-tags"></span> {%- name %}</a>
+              <a class="js-form js-delete-tag-btn text-warn" th:href="'#js-delete-tag-form-{%- id %}'"><span class="icon icon-cancel-circle"></span></a>
+              <form th:id="'js-delete-tag-form-{%- id %}'" th:action="@{'/books/' + ${book.id} + '/tags/' + '{%- id %}'}" method="delete" style="display: none"></form>                </li>
+          </script>
+          <form id="js-add-tag-form" style="display: none; width: 400px;"
+                action="#" th:action="@{'/books/' + ${book.id} + '/tags'}" method="post">
+            <input type="text" name="name" />
+            <button class="btn btn-create" type="submit">Add</button>
+            <button id="js-cancel-tags-btn" class="btn" type="button">Done</button>
+          </form>
+        </section>
+
+        <section>
+          <h3 class="sr-only">Authors</h3>
+          <p class="book-authors">Authors: <span th:text="${book.author}">The author</span></p>
+        </section>
+
+        <section>
+          <h3 class="sr-only">Publisher</h3>
+          <p class="book-publisher">Publisher: <span th:text="${book.publisher}">The publisher</span></p>
+        </section>
+
         <section>
           <h3>Description</h3>
           <p>
@@ -53,7 +86,7 @@
             This is comments.
           </p>
           <form class="js-edit-comment-form vertical-box" style="display: none; width: 400px;"
-                action="dummy" th:action="@{'/books/' + ${book.id} + '/comments/' + ${comment.id}(method=put)}" method="post">
+                action="#" th:action="@{'/books/' + ${book.id} + '/comments/' + ${comment.id}(method=put)}" method="post">
             <textarea name="content" th:text="${comment.content}"></textarea>
             <button class="btn btn-create" type="submit">Update comment</button>
             <button class="btn js-cancel-comment-btn" type="button">Cancel</button>
@@ -66,7 +99,7 @@
         <section>
           <h3>Write comment</h3>
           <form class="vertical-box" style="width: 400px"
-                action="dummy" th:action="@{'/books/' + ${book.id} + '/comments'}" method="post">
+                action="book-show.html" th:action="@{'/books/' + ${book.id} + '/comments'}" method="post">
             <textarea name="content"></textarea>
             <input class="btn btn-create" type="submit" value="Post comment" style="float: right;" />
           </form>
@@ -80,6 +113,7 @@
     </footer>
 
     <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="../static/vendor/lodash/lodash.compat.js" th:src="@{/vendor/lodash/lodash.compat.js}"></script>
     <script src="../static/js/ui.js" th:src="@{/js/ui.js}"></script>
     <script src="../static/js/book-show.js" th:src="@{/js/book-show.js}"></script>
   </body>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title th:text="'All tags | ' + #{app.name}"></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+
+    <link rel="stylesheet" href="../static/fonts/style.css" th:href="@{/fonts/style.css}" />
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+
+    <header th:include="commons/header.html">
+      <!--#include virtual="commons/header.html" -->
+    </header>
+
+    <div class="container">
+
+      <section>
+        <h2>All tags (<span th:text="${#lists.size(tags)}" th:remove="tag"></span>)</h2>
+        <ul class="list-inline list-4-columns" th:remove="all-but-first">
+          <li th:each="tag, itr : ${tags}"><a href="#" th:href="@{'/books?q=tag:' + ${tag.name}}" th:text="${tag.name} + ' (' + ${#lists.size(tag.books)} + ')'"></a></li>
+          <li><a href="#">Java</a></li>
+          <li><a href="#">Lisp</a></li>
+          <li><a href="#">Node</a></li>
+          <li><a href="#">JavaScript</a></li>
+          <li><a href="#">Redis</a></li>
+          <li><a href="#">シェルスクリプト</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <footer th:include="commons/footer.html">
+      <!--#include virtual="commons/footer.html" -->
+    </footer>
+
+    <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="../static/js/main.js" th:src="@{/js/ui.js}"></script>
+    <script src="../static/js/main.js" th:src="@{/js/books-list.js}"></script>
+  </body>
+</html>

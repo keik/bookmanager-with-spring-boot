@@ -1,18 +1,26 @@
 package info.keik.bookmanager.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "books")
@@ -33,9 +41,15 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private String publisher;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book")
     @OrderBy(value = "created")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<Comment>();
+
+    @ManyToMany(targetEntity = Tag.class, cascade = CascadeType.ALL)
+    @JoinTable(name = "books_tags", joinColumns = { @JoinColumn(name = "book_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id", referencedColumnName = "id") })
+    @JsonIgnore
+    @OrderBy("name ASC")
+    private Set<Tag> tags = new HashSet<Tag>();
 
     public Book() {
     }
@@ -89,6 +103,41 @@ public class Book implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        if (!getComments().contains(comment)) {
+            getComments().add(comment);
+        }
+        if (comment.getBook() != this) {
+            comment.setBook(this);
+        }
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void addTag(Tag tag) {
+        if (!getTags().contains(tag)) {
+            getTags().add(tag);
+        }
+        if (!tag.getBooks().contains(this)) {
+            tag.getBooks().add(this);
+        }
+    }
+
+    public void removeTag(Tag tag) {
+        if (getTags().contains(tag)) {
+            getTags().remove(tag);
+        }
+        if (tag.getBooks().contains(this)) {
+            tag.getBooks().remove(this);
+        }
     }
 
 }

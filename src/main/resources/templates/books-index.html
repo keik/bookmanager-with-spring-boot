@@ -31,6 +31,21 @@
         </section>
 
         <hr />
+
+        <section>
+          <h2><span class="icon icon-tags"></span> Related tags</h2>
+          <ul>
+            <li><a href="books-index.html">Java</a></li>
+            <li><a href="books-index.html">Lisp</a></li>
+            <li><a href="books-index.html">Node</a></li>
+            <li><a href="books-index.html">JavaScript</a></li>
+          </ul>
+          <p style="text-align: right;">
+            <a href="tags-index.html" th:href="@{/tags}">Show all tags</a>
+          </p>
+        </section>
+
+        <hr />
       </section>
 
       <section class="contents">
@@ -52,7 +67,7 @@
           <tbody th:remove="all-but-first">
             <tr th:each="book, itr : ${books}">
               <td><input type="checkbox" name="selected" th:value="${book.id}" /></td>
-              <td><a href="details" th:href="@{'/books/' + ${book.id}}"><span th:remove="tag" th:text="${book.title}">The title</span></a></td>
+              <td><a href="book-show.html" th:href="@{'/books/' + ${book.id}}"><span th:remove="tag" th:text="${book.title}">The title</span></a></td>
               <td th:text="${book.author}">The author</td>
               <td th:text="${book.publisher}">The publisher</td>
               <td style="text-align: center"><span class="label label-disabled">on loan</span></td>

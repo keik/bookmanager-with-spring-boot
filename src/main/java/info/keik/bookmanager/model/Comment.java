@@ -38,6 +38,10 @@ public class Comment implements Serializable {
     public Comment() {
     }
 
+    public Comment(String content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

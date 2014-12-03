@@ -54,13 +54,17 @@ public interface BooksService {
      */
     public Book findBookById(Integer id);
 
+<<<<<<< HEAD
     /**
-     * Find books by query (temporary) TODO #9
+     * Find books by title (temporary) TODO #9
      * 
      * @param string
-     *            Query
+     *            A Parts of titles
      * @return Found books
      */
-    public List<Book> findBooksByQuery(String query);
+    public List<Book> findBooksByTitle(String string);
 
+=======
+    public List<Book> findBooksByQuery(String string);
+>>>>>>> tag-feature
 }
