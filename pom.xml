@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>info.keik</groupId>
-  <artifactId>bookmanager-spring-boot</artifactId>
+  <artifactId>bookmanager-with-spring-boot</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <parent>
     <groupId>org.springframework.boot</groupId>
