@@ -64,6 +64,12 @@
           <p class="book-publisher">Publisher: <span th:text="${book.publisher}">The publisher</span></p>
         </section>
 
+        <form id="js-rental-form" th:action="@{/rental}" method="post">
+          <button class="btn btn-create">
+            Rental now
+          </button>
+        </form>
+
         <section>
           <h3>Description</h3>
           <p>

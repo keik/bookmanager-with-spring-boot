@@ -14,6 +14,9 @@
     $(document).on('click', '.js-delete-tag-btn', handlers.onClickDeleteTagBtn);
     $('#js-cancel-tags-btn').on('click', handlers.onClickCancelTagsBtn);
 
+    // Rental operation
+    $('#js-rental-form').on('submit', handlers.onSubmitRentalBtn);
+
     // Comments operation
     $(document).on('click',  '.js-edit-comment-btn',   handlers.onClickEditCommentBtn);
     $(document).on('submit', '.js-edit-comment-form',  handlers.onSubmitEditCommentForm);
@@ -23,7 +26,7 @@
   var handlers = {
 
     /**
-     * Open edit tags area
+     * Open edit-tags area
      */
     onClickEditTagsBtn: function (e) {
       e.preventDefault();
@@ -33,7 +36,7 @@
     },
 
     /**
-     * Add new tag to the book
+     * Add a new tag to a book
      */
     onSubmitAddTagForm: function (e) {
       e.preventDefault();
@@ -59,6 +62,9 @@
       });
     },
 
+    /**
+     * Delete a tag from a book
+     */
     onClickDeleteTagBtn: function (e) {
       e.preventDefault();
 
@@ -82,7 +88,7 @@
     },
 
     /**
-     * Close edit tag area
+     * Close edit-tags area
      */
     onClickCancelTagsBtn: function (e) {
       e.preventDefault();
@@ -92,7 +98,31 @@
     },
 
     /**
-     * Open edit comment area
+     * Rental a book
+     */
+    onSubmitRentalBtn: function (e) {
+      e.preventDefault();
+
+      var $form = $(this);
+
+      $.ajax({
+        url: $form.attr('action'),
+        method: $form.atrr('method'),
+        headers: getCsrfHeader()
+      }).done(function (newRental) {
+
+        // TODO
+        console.log('success', newRental);
+      }).fail(function (xhr) {
+
+        // TODO
+        console.log(xhr);
+        alert('Something wrong');
+      });
+    },
+
+    /**
+     * Open edit-comment area
      */
     onClickEditCommentBtn: function (e) {
       e.preventDefault();
