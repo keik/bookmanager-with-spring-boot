@@ -22,8 +22,8 @@ public class CommentsServiceImpl implements CommentsService {
 
     @Override
     @Transactional
-    public void addCommentToBook(Integer bookId, Comment comment) {
-        comment.setBook(booksRepository.findOne(bookId));
+    public void addCommentToItem(Integer bookId, Comment comment) {
+        comment.setItem(booksRepository.findOne(bookId));
         commentsRepository.save(comment);
     }
 
@@ -36,7 +36,7 @@ public class CommentsServiceImpl implements CommentsService {
             // TODO
             throw new RuntimeException("TODO");
         }
-        comment.setBook(target.getBook());
+        comment.setItem(target.getItem());
         commentsRepository.save(comment);
     }
 

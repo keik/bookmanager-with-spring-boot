@@ -8,6 +8,8 @@
         <nav id="dropdown-user" class="dropdown-list">
           <ul>
             <li><a href="#" th:href="@{/#}" onclick="alert('Not implemented'); return false;" ><span class="icon icon-cog"></span> Account menus</a></li>
+            <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a href="#" th:href="@{/stocks}"><span class="icon icon-books"></span> Manage stocks</a></li>
+            <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a href="#" th:href="@{/rentals}"><span class="icon icon-calendar"></span> Manage rentals</a></li>
             <li><a href="#" onclick="document.getElementById('logout-form').submit();"><span class="icon icon-logout"></span> Log out</a>
               <form id="logout-form" th:action="@{/logout}" method="post" style="display: none;"></form></li>
           </ul>

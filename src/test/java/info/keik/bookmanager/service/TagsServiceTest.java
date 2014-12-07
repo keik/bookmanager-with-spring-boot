@@ -7,8 +7,8 @@ import static org.junit.Assert.assertThat;
 import info.keik.bookmanager.Application;
 import info.keik.bookmanager.domain.BooksRepository;
 import info.keik.bookmanager.domain.TagsRepository;
-import info.keik.bookmanager.model.Book;
 import info.keik.bookmanager.model.Tag;
+import info.keik.bookmanager.model.item.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -81,18 +81,18 @@ public class TagsServiceTest extends
     @Test
     public void 本に新規タグを追加できる() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         Tag tag4 = new Tag("tag4");
         int count_tags_with_book1 = book1.getTags().size();
         int count_tags_all = (int) tagsRepository.count();
         // exercise
-        Tag added = sut.addTagToBook(book1.getId(), tag4);
+        Tag added = sut.addTagToItem(book1.getId(), tag4);
 
         em.flush();
         em.close();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         assertThat(updatedBook1.getTags(), hasSize(count_tags_with_book1 + 1));
         assertThat(tagsRepository.findAll(), hasSize(count_tags_all + 1));
         assertThat(added.getName(), is("tag4"));
@@ -101,18 +101,18 @@ public class TagsServiceTest extends
     @Test
     public void 本に既存タグを追加できる() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         Tag tag3 = tagsRepository.findByName("tag3");
         int count_tags_with_book1 = book1.getTags().size();
         int count_tags_all = (int) tagsRepository.count();
         // exercise
-        Tag added = sut.addTagToBook(book1.getId(), tag3);
+        Tag added = sut.addTagToItem(book1.getId(), tag3);
 
         em.flush();
         em.close();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         assertThat(updatedBook1.getTags(), hasSize(count_tags_with_book1 + 1));
         assertThat(tagsRepository.findAll(), hasSize(count_tags_all));
         assertThat(added.getName(), is("tag3"));
@@ -121,18 +121,18 @@ public class TagsServiceTest extends
     @Test
     public void 本に同じタグを追加できない() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         Tag tag1 = tagsRepository.findByName("tag1");
         int count_tags_with_book1 = book1.getTags().size();
         int count_tags_all = (int) tagsRepository.count();
         // exercise
-        Tag added = sut.addTagToBook(book1.getId(), tag1);
+        Tag added = sut.addTagToItem(book1.getId(), tag1);
 
         em.flush();
         em.close();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         assertThat(updatedBook1.getTags(), hasSize(count_tags_with_book1));
         assertThat(tagsRepository.findAll(), hasSize(count_tags_all));
         assertThat(added, is(nullValue()));
@@ -141,18 +141,18 @@ public class TagsServiceTest extends
     @Test
     public void 本からタグを削除できる() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         Tag tag1 = tagsRepository.findByName("tag1");
         int count_tags_with_book1 = book1.getTags().size();
         int count_tags_all = (int) tagsRepository.count();
         // exercise
-        Boolean isDeleted = sut.deleteTagFromBook(book1.getId(), tag1.getId());
+        Boolean isDeleted = sut.deleteTagFromItem(book1.getId(), tag1.getId());
 
         em.flush();
         em.close();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         assertThat(updatedBook1.getTags(), hasSize(count_tags_with_book1 - 1));
         assertThat(tagsRepository.findAll(), hasSize(count_tags_all));
         assertThat(isDeleted, is(true));
@@ -161,18 +161,18 @@ public class TagsServiceTest extends
     @Test
     public void 本に追加されていないタグを削除しようとして失敗してnullを返す() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         Tag tag3 = tagsRepository.findByName("tag3");
         int count_tags_with_book1 = book1.getTags().size();
         int count_tags_all = (int) tagsRepository.count();
         // exercise
-        Boolean isDeleted = sut.deleteTagFromBook(book1.getId(), tag3.getId());
+        Boolean isDeleted = sut.deleteTagFromItem(book1.getId(), tag3.getId());
 
         em.flush();
         em.close();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         assertThat(updatedBook1.getTags(), hasSize(count_tags_with_book1));
         assertThat(tagsRepository.findAll(), hasSize(count_tags_all));
         assertThat(isDeleted, is(false));

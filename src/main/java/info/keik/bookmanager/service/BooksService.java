@@ -1,34 +1,10 @@
 package info.keik.bookmanager.service;
 
-import info.keik.bookmanager.model.Book;
+import info.keik.bookmanager.model.item.Book;
 
 import java.util.List;
 
 public interface BooksService {
-
-    /**
-     * Add a book
-     * 
-     * @param book
-     *            A book to add
-     */
-    public void addBook(Book book);
-
-    /**
-     * Delete a book
-     * 
-     * @param id
-     *            Book ID to delete
-     */
-    public void deleteBook(Integer id);
-
-    /**
-     * Delete books
-     * 
-     * @param ids
-     *            Book IDs to delete
-     */
-    public void deleteBooks(List<Integer> ids);
 
     /**
      * Update a book
@@ -53,14 +29,5 @@ public interface BooksService {
      * @return A found book
      */
     public Book findBookById(Integer id);
-
-    /**
-     * Find books by query (temporary) TODO #9
-     * 
-     * @param string
-     *            Query
-     * @return Found books
-     */
-    public List<Book> findBooksByQuery(String query);
 
 }

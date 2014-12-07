@@ -2,16 +2,16 @@ package info.keik.bookmanager.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Entity
-@Table(name = "stocks")
 public class Stock implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -20,18 +20,25 @@ public class Stock implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Integer refNo;
 
     @Column(nullable = false)
-    private Book book;
+    private String type;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Item item;
+
+    @Column(nullable = false)
+    private Boolean isOnLoan = true;
 
     public Stock() {
     }
 
-    public Stock(Integer refNo, Book book) {
+    public Stock(Integer refNo, String type, Item item) {
         this.refNo = refNo;
-        this.book = book;
+        this.type = type;
+        this.item = item;
     }
 
     @Override
@@ -55,12 +62,28 @@ public class Stock implements Serializable {
         this.refNo = refNo;
     }
 
-    public Book getBook() {
-        return book;
+    public String getType() {
+        return type;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Boolean getIsOnLoan() {
+        return isOnLoan;
+    }
+
+    public void setIsOnLoan(Boolean isOnLoan) {
+        this.isOnLoan = isOnLoan;
     }
 
 }

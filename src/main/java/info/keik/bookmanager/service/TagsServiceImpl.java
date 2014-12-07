@@ -1,8 +1,8 @@
 package info.keik.bookmanager.service;
 
-import info.keik.bookmanager.domain.BooksRepository;
+import info.keik.bookmanager.domain.ItemsRepository;
 import info.keik.bookmanager.domain.TagsRepository;
-import info.keik.bookmanager.model.Book;
+import info.keik.bookmanager.model.Item;
 import info.keik.bookmanager.model.Tag;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class TagsServiceImpl implements TagsService {
 
     @Autowired
-    private BooksRepository booksRepository;
+    private ItemsRepository itemsRepository;
 
     @Autowired
     private TagsRepository tagsRepository;
@@ -25,34 +25,34 @@ public class TagsServiceImpl implements TagsService {
     }
 
     @Override
-    public Tag addTagToBook(Integer bookId, Tag tag) {
+    public Tag addTagToItem(Integer itemId, Tag tag) {
         Tag t = tagsRepository.findByName(tag.getName());
-        Book book = booksRepository.findOne(bookId);
+        Item item = itemsRepository.findOne(itemId);
 
         if (t == null) {
 
             // Create a new tag
             t = tag;
-            t.addBook(book);
+            t.addItem(item);
             return tagsRepository.save(t);
         }
 
-        if (t.getBooks().contains(book)) {
+        if (t.getItems().contains(item)) {
 
             // Already a book is tagged, nothing to update
             return null;
         } else {
 
             // Add a tag to a book
-            t.addBook(book);
+            t.addItem(item);
             return tagsRepository.save(t);
         }
     }
 
     @Override
-    public Boolean deleteTagFromBook(Integer bookId, Integer tagId) {
+    public Boolean deleteTagFromItem(Integer itemId, Integer tagId) {
         Tag tag = tagsRepository.findOne(tagId);
-        Book book = booksRepository.findOne(bookId);
+        Item item = itemsRepository.findOne(itemId);
 
         if (tag == null) {
 
@@ -60,14 +60,14 @@ public class TagsServiceImpl implements TagsService {
             return false;
         }
 
-        if (!tag.getBooks().contains(book)) {
+        if (!tag.getItems().contains(item)) {
 
             // A book isn't tagged, nothing to update
             return false;
         } else {
 
             // Delete a tag from a book
-            tag.removeBook(book);
+            tag.removeItem(item);
             tagsRepository.save(tag);
             return true;
         }

@@ -24,7 +24,7 @@ public class CommentsController {
     @RequestMapping(method = RequestMethod.POST)
     public String create(Model model, Comment comment,
             @PathVariable("bookId") Integer bookId) {
-        commentsService.addCommentToBook(bookId, comment);
+        commentsService.addCommentToItem(bookId, comment);
         return "redirect:/books/{bookId}";
     }
 

@@ -6,8 +6,8 @@ import static org.junit.Assert.assertThat;
 import info.keik.bookmanager.Application;
 import info.keik.bookmanager.domain.BooksRepository;
 import info.keik.bookmanager.domain.CommentsRepository;
-import info.keik.bookmanager.model.Book;
 import info.keik.bookmanager.model.Comment;
+import info.keik.bookmanager.model.item.Book;
 
 import java.util.Arrays;
 import java.util.List;
@@ -75,27 +75,27 @@ public class CommentsServiceTest extends
     @Test
     public void コメントを追加できる() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         int count = book1.getComments().size();
 
         assertThat(count, is(2));
         // exercise
         Comment comment = new Comment("the comment");
-        sut.addCommentToBook(book1.getId(), comment);
+        sut.addCommentToItem(book1.getId(), comment);
         commentsRepository.save(comment);
 
         em.flush();
         em.clear();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         assertThat(updatedBook1.getComments(), hasSize(count + 1));
     }
 
     @Test
     public void コメントを更新できる() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         Comment comment2 = book1.getComments().get(1);
         // exercise
         comment2.setContent("fixed comment");
@@ -105,7 +105,7 @@ public class CommentsServiceTest extends
         em.clear();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         Comment updatedComment2 = updatedBook1.getComments().get(1);
         assertThat(updatedComment2.getContent(), is("fixed comment"));
     }
@@ -113,7 +113,7 @@ public class CommentsServiceTest extends
     @Test
     public void IDで指定したコメントを削除できる() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         int count = book1.getComments().size();
         Integer comment2_id = book1.getComments().get(1).getId();
         // exercise
@@ -123,14 +123,14 @@ public class CommentsServiceTest extends
         em.clear();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         assertThat(updatedBook1.getComments(), hasSize(count - 1));
     }
 
     @Test
     public void 複数のIDで指定したコメントを削除できる() {
         // setup
-        Book book1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book book1 = booksRepository.findByNameContaining("t1").get(0);
         int count = book1.getComments().size();
         Integer comment1_id = book1.getComments().get(0).getId();
         Integer comment2_id = book1.getComments().get(1).getId();
@@ -142,7 +142,7 @@ public class CommentsServiceTest extends
         em.clear();
 
         // verify
-        Book updatedBook1 = booksRepository.findByTitleContaining("t1").get(0);
+        Book updatedBook1 = booksRepository.findByNameContaining("t1").get(0);
         assertThat(updatedBook1.getComments(), hasSize(count - 2));
     }
 

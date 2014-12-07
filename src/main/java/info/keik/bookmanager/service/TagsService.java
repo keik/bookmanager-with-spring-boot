@@ -14,25 +14,25 @@ public interface TagsService {
     public List<Tag> findAllTags();
 
     /**
-     * Add a tag to a book
+     * Add a tag to a item
      * 
-     * @param bookId
-     *            Book ID for adding a tag
+     * @param itemId
+     *            Item ID for adding a tag
      * @param tag
      *            A tag to add
      * @return The added tag, or null if the tag wasn't added
      */
-    public Tag addTagToBook(Integer bookId, Tag tag);
+    public Tag addTagToItem(Integer itemId, Tag tag);
 
     /**
-     * Remove a tag from the book
+     * Remove a tag from the item
      * 
-     * @param bookId
-     *            Book ID for removing the tag
+     * @param itemId
+     *            Item ID for removing the tag
      * @param tag
      *            A tag to remove
      * @return true for success, or false for fail
      */
-    public Boolean deleteTagFromBook(Integer bookId, Integer tagId);
+    public Boolean deleteTagFromItem(Integer itemId, Integer tagId);
 
 }

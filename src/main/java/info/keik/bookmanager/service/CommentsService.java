@@ -7,14 +7,14 @@ import java.util.List;
 public interface CommentsService {
 
     /**
-     * Add a comment to a book
+     * Add a comment to a item
      * 
-     * @param bookId
-     *            Book Id for adding a comment
+     * @param itemId
+     *            Item Id for adding a comment
      * @param comment
      *            A comment to add
      */
-    public void addCommentToBook(Integer bookId, Comment comment);
+    public void addCommentToItem(Integer itemId, Comment comment);
 
     /**
      * Update a comment

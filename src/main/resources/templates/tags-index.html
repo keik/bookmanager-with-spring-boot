@@ -24,7 +24,7 @@
       <section>
         <h2>All tags (<span th:text="${#lists.size(tags)}" th:remove="tag"></span>)</h2>
         <ul class="list-inline list-4-columns" th:remove="all-but-first">
-          <li th:each="tag, itr : ${tags}"><a href="#" th:href="@{'/books?q=tag:' + ${tag.name}}" th:text="${tag.name} + ' (' + ${#lists.size(tag.books)} + ')'"></a></li>
+          <li th:each="tag, itr : ${tags}"><a href="#" th:href="@{'/books?q=tag:' + ${tag.name}}" th:text="${tag.name} + ' (' + ${#lists.size(tag.items)} + ')'"></a></li>
           <li><a href="#">Java</a></li>
           <li><a href="#">Lisp</a></li>
           <li><a href="#">Node</a></li>
@@ -40,7 +40,6 @@
     </footer>
 
     <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
-    <script src="../static/js/main.js" th:src="@{/js/ui.js}"></script>
-    <script src="../static/js/main.js" th:src="@{/js/books-list.js}"></script>
+    <script src="../static/js/ui.js" th:src="@{/js/ui.js}"></script>
   </body>
 </html>

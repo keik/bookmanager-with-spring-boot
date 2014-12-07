@@ -9,9 +9,27 @@ public interface StocksService {
     /**
      * Returns all stocks
      * 
-     * @return List of all stccks
+     * @return List of all stocks
      */
     public List<Stock> findAllStocks();
+
+    /**
+     * Returns found stocks by query (temporary) TODO #9
+     * 
+     * @param name
+     *            Part of name to find
+     * @return Found stocks
+     */
+    public List<Stock> findStocksByQuery(String name);
+
+    /**
+     * Find a stock by ID
+     * 
+     * @param id
+     *            Stock ID to find
+     * @return A found stock
+     */
+    public Stock findStockById(Integer id);
 
     /**
      * Add a new stock
@@ -22,11 +40,37 @@ public interface StocksService {
     public Stock addStock(Stock stock);
 
     /**
-     * Return a book
+     * Rent a stock
+     * 
+     * @param stockId
+     *            Stock ID to rent
+     * @return The rented stock, or null on failure
+     */
+    public Stock rentStock(Integer stockId);
+
+    /**
+     * Return a stock
+     * 
+     * @param stockId
+     *            Stock ID to return
+     * @return The returned stock, or null on failure
+     */
+    public Stock returnStock(Integer stockId);
+
+    /**
+     * Return a stock
      * 
      * @param stockId
      *            Stock ID to delete
      */
     public void deleteStock(Integer stockId);
+
+    /**
+     * Delete stocks
+     * 
+     * @param ids
+     *            Stock IDs to delete
+     */
+    public void deleteStocks(List<Integer> ids);
 
 }

@@ -24,7 +24,7 @@ public class RentalsController {
     public String index(Model model) {
         List<Rental> rentals = rentalsService.findAllRentals();
         model.addAttribute("rentals", rentals);
-        return null;
+        return "rentals-index.html";
     }
 
     @RequestMapping(method = RequestMethod.POST)

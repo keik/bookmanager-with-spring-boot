@@ -9,14 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 @Entity
-@Table(name = "comments")
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,7 +27,7 @@ public class Comment implements Serializable {
     private String content;
 
     @ManyToOne
-    private Book book;
+    private Item item;
 
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -68,12 +66,12 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public Book getBook() {
-        return book;
+    public Item getItem() {
+        return item;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public Date getCreated() {

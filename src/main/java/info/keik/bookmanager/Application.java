@@ -56,7 +56,7 @@ public class Application {
             http.authorizeRequests().anyRequest().permitAll()
 
             .and().formLogin().loginProcessingUrl("/session")
-                    .defaultSuccessUrl("/books").loginPage("/login")
+                    .defaultSuccessUrl("/stocks").loginPage("/login")
                     .usernameParameter("id").passwordParameter("password")
                     .permitAll()
 

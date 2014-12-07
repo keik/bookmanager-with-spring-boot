@@ -26,10 +26,10 @@ public class TagsController {
         return "tags-index.html";
     }
 
-    @RequestMapping(value = "/books/{bookId}/tags", method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<Tag> creteRelationWithBook(Model model,
-            @PathVariable("bookId") Integer bookId, Tag tag) {
-        Tag added = tagsService.addTagToBook(bookId, tag);
+    @RequestMapping(value = "/items/{itemId}/tags", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<Tag> createRelationWithItem(Model model,
+            @PathVariable("itemId") Integer itemId, Tag tag) {
+        Tag added = tagsService.addTagToItem(itemId, tag);
         if (added != null) {
             return new ResponseEntity<Tag>(added, HttpStatus.CREATED);
         } else {
@@ -37,11 +37,11 @@ public class TagsController {
         }
     }
 
-    @RequestMapping(value = "/books/{bookId}/tags/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody ResponseEntity<String> destroyRelationWithBook(
-            Model model, @PathVariable("bookId") Integer bookId,
+    @RequestMapping(value = "/items/{itemId}/tags/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody ResponseEntity<String> destroyRelationWithItem(
+            Model model, @PathVariable("itemId") Integer itemId,
             @PathVariable("id") Integer tagId) {
-        if (tagsService.deleteTagFromBook(bookId, tagId)) {
+        if (tagsService.deleteTagFromItem(itemId, tagId)) {
             return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<String>(HttpStatus.NOT_FOUND);

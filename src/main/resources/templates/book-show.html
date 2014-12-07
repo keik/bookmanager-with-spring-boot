@@ -28,14 +28,14 @@
           <a href="book-edit.html" th:href="@{'/books/' + ${book.id} + '/edit'}" class="btn"><span class="icon icon-pencil"> Edit this book</span></a>
         </p>
 
-        <h2 class="book-title" th:text="${book.title}">The title</h2>
+        <h2 class="book-name" th:text="${book.name}">The name</h2>
 
         <section>
           <h3 class="sr-only">Tags</h3>
           <button id="js-edit-tags-btn" class="btn" style="float: right"><span class="icon icon-pencil"></span></button>
           <ul id="js-tags" class="list-inline" th:remove="all-but-first">
             <li class="js-tag" th:each="tag, itr : ${book.tags}">
-              <a href="books-index.html" th:href="@{'/books?q=tag:' + ${tag.name}}"><span class="icon icon-tags"></span> <span th:text="${tag.name}" th:remove="tag">Java</span></a>
+              <a href="stocks-index.html" th:href="@{'/stocks?q=tag:' + ${tag.name}}"><span class="icon icon-tags"></span> <span th:text="${tag.name}" th:remove="tag">Java</span></a>
               <a class="js-form js-delete-tag-btn text-warn" th:href="'#js-delete-tag-form-' + ${tag.id}" style="display: none;"><span class="icon icon-cancel-circle"></span></a>
               <form th:id="'js-delete-tag-form-' + ${tag.id}" th:action="@{'/books/' + ${book.id} + '/tags/' + ${tag.id}}" method="delete" style="display: none"></form>
             </li>
@@ -44,7 +44,8 @@
             <li class="js-tag">
               <a th:href="@{'/books?q=tag:' + '{%- name %}'}"><span class="icon icon-tags"></span> {%- name %}</a>
               <a class="js-form js-delete-tag-btn text-warn" th:href="'#js-delete-tag-form-{%- id %}'"><span class="icon icon-cancel-circle"></span></a>
-              <form th:id="'js-delete-tag-form-{%- id %}'" th:action="@{'/books/' + ${book.id} + '/tags/' + '{%- id %}'}" method="delete" style="display: none"></form>                </li>
+              <form th:id="'js-delete-tag-form-{%- id %}'" th:action="@{'/books/' + ${book.id} + '/tags/' + '{%- id %}'}" method="delete" style="display: none"></form>
+            </li>
           </script>
           <form id="js-add-tag-form" style="display: none; width: 400px;"
                 action="#" th:action="@{'/books/' + ${book.id} + '/tags'}" method="post">

@@ -11,20 +11,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "books")
-public class Book implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,37 +33,20 @@ public class Book implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
-    private String title;
+    protected String name;
 
-    @Column(nullable = false)
-    private String author;
-
-    @Column(nullable = false)
-    private String publisher;
-
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "item")
     @OrderBy(value = "created")
     private List<Comment> comments = new ArrayList<Comment>();
 
     @ManyToMany(targetEntity = Tag.class, cascade = CascadeType.ALL)
-    @JoinTable(name = "books_tags", joinColumns = { @JoinColumn(name = "book_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id", referencedColumnName = "id") })
+    @JoinTable(name = "item_to_tag", joinColumns = { @JoinColumn(name = "item_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id", referencedColumnName = "id") })
     @JsonIgnore
     @OrderBy("name ASC")
     private Set<Tag> tags = new HashSet<Tag>();
 
-    public Book() {
-    }
-
-    public Book(String title, String author, String publisher) {
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
+    @OneToOne(mappedBy = "item", cascade = CascadeType.PERSIST)
+    private Stock stock;
 
     public Integer getId() {
         return id;
@@ -73,44 +56,28 @@ public class Book implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
+    public String getName() {
+        return name;
     }
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
     public void addComment(Comment comment) {
         if (!getComments().contains(comment)) {
             getComments().add(comment);
         }
-        if (comment.getBook() != this) {
-            comment.setBook(this);
+        if (comment.getItem() != this) {
+            comment.setItem(this);
         }
     }
 
@@ -126,8 +93,8 @@ public class Book implements Serializable {
         if (!getTags().contains(tag)) {
             getTags().add(tag);
         }
-        if (!tag.getBooks().contains(this)) {
-            tag.getBooks().add(this);
+        if (!tag.getItems().contains(this)) {
+            tag.getItems().add(this);
         }
     }
 
@@ -135,9 +102,17 @@ public class Book implements Serializable {
         if (getTags().contains(tag)) {
             getTags().remove(tag);
         }
-        if (tag.getBooks().contains(this)) {
-            tag.getBooks().remove(this);
+        if (tag.getItems().contains(this)) {
+            tag.getItems().remove(this);
         }
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
     }
 
 }

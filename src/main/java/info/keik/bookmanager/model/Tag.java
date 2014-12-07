@@ -9,14 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tags")
 public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,7 +28,7 @@ public class Tag implements Serializable {
 
     @ManyToMany(mappedBy = "tags")
     @JsonIgnore
-    private Set<Book> books = new HashSet<Book>();
+    private Set<Item> items = new HashSet<Item>();
 
     public Tag() {
     }
@@ -60,29 +58,29 @@ public class Tag implements Serializable {
         this.name = name;
     }
 
-    public Set<Book> getBooks() {
-        return books;
+    public Set<Item> getItems() {
+        return items;
     }
 
-    public void setBooks(Set<Book> books) {
-        this.books = books;
+    public void setItems(Set<Item> items) {
+        this.items = items;
     }
 
-    public void addBook(Book book) {
-        if (!getBooks().contains(book)) {
-            getBooks().add(book);
+    public void addItem(Item item) {
+        if (!getItems().contains(item)) {
+            getItems().add(item);
         }
-        if (!book.getTags().contains(this)) {
-            book.getTags().add(this);
+        if (!item.getTags().contains(this)) {
+            item.getTags().add(this);
         }
     }
 
-    public void removeBook(Book book) {
-        if (getBooks().contains(book)) {
-            getBooks().remove(book);
+    public void removeItem(Item item) {
+        if (getItems().contains(item)) {
+            getItems().remove(item);
         }
-        if (book.getTags().contains(this)) {
-            book.getTags().remove(this);
+        if (item.getTags().contains(this)) {
+            item.getTags().remove(this);
         }
     }
 

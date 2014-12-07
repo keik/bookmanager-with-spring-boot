@@ -6,10 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "rentals")
 public class Rental implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,8 +19,8 @@ public class Rental implements Serializable {
     @OneToOne
     private Stock stock;
 
-    @OneToOne
-    private User user;
+    // @OneToOne
+    // private User user;
 
     public Rental() {
     }
@@ -43,12 +41,12 @@ public class Rental implements Serializable {
         this.stock = stock;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    // public User getUser() {
+    // return user;
+    // }
+    //
+    // public void setUser(User user) {
+    // this.user = user;
+    // }
 
 }
