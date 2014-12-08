@@ -1,12 +1,15 @@
 package info.keik.bookmanager.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -31,6 +34,9 @@ public class Stock implements Serializable {
 
     @Column(nullable = false)
     private Boolean isOnLoan = true;
+
+    @OneToMany(mappedBy = "stock")
+    private List<Rental> rentals = new ArrayList<Rental>();
 
     public Stock() {
     }
@@ -86,4 +92,20 @@ public class Stock implements Serializable {
         this.isOnLoan = isOnLoan;
     }
 
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void addComment(Rental rental) {
+        if (!getRentals().contains(rental)) {
+            getRentals().add(rental);
+        }
+        if (rental.getStock() != this) {
+            rental.setStock(this);
+        }
+    }
 }

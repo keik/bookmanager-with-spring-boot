@@ -3,7 +3,7 @@
 (function () {
 
   $(function init() {
-    $('#delete-btn').on('click', handlers.onClickDeleteBtn);
+    $('#js-delete-btn').on('click', handlers.onClickDeleteBtn);
   });
 
   var handlers = {
@@ -14,11 +14,8 @@
     onClickDeleteBtn: function (e) {
       e.preventDefault();
 
-      // Spring Security CSRF Protection
-      var csrfHeader = $('meta[name=_csrf_header]').attr('content');
-      var csrfToken = $('meta[name=_csrf]').attr('content');
-      var headers = {};
-      headers[csrfHeader] = csrfToken;
+      var $this = $(this);
+      var $form = $($this.attr('href'));
 
       // collect selected book ids
       var selectedIds = [];
@@ -27,9 +24,9 @@
       });
 
       $.ajax({
-        url: 'books/' + selectedIds.join(','),
-        method: 'delete',
-        headers: headers
+        url: $form.attr('action') + '/' + selectedIds.join(','),
+        method: $form.attr('method'),
+        headers: getCsrfHeader()
       }).done(function () {
         $selected.closest('tr').remove();
       }).fail(function (xhr) {
@@ -40,5 +37,15 @@
       });
     }
   };
+
+  function getCsrfHeader() {
+
+    // Spring Security CSRF Protection
+    var csrfHeader = $('meta[name=_csrf_header]').attr('content');
+    var csrfToken = $('meta[name=_csrf]').attr('content');
+    var headers = {};
+    headers[csrfHeader] = csrfToken;
+    return headers;
+  }
 
 }());

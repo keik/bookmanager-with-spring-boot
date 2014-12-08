@@ -40,24 +40,6 @@ public interface StocksService {
     public Stock addStock(Stock stock);
 
     /**
-     * Rent a stock
-     * 
-     * @param stockId
-     *            Stock ID to rent
-     * @return The rented stock, or null on failure
-     */
-    public Stock rentStock(Integer stockId);
-
-    /**
-     * Return a stock
-     * 
-     * @param stockId
-     *            Stock ID to return
-     * @return The returned stock, or null on failure
-     */
-    public Stock returnStock(Integer stockId);
-
-    /**
      * Return a stock
      * 
      * @param stockId

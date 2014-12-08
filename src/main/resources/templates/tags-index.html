@@ -22,10 +22,9 @@
     <div class="container">
 
       <section>
-        <h2>All tags (<span th:text="${#lists.size(tags)}" th:remove="tag"></span>)</h2>
+        <h2>All tags (<span th:text="${#lists.size(tags)}" th:remove="tag">6</span>)</h2>
         <ul class="list-inline list-4-columns" th:remove="all-but-first">
-          <li th:each="tag, itr : ${tags}"><a href="#" th:href="@{'/books?q=tag:' + ${tag.name}}" th:text="${tag.name} + ' (' + ${#lists.size(tag.items)} + ')'"></a></li>
-          <li><a href="#">Java</a></li>
+          <li th:each="tag, itr : ${tags}"><a href="#" th:href="@{'/stocks?q=tag:' + ${tag.name}}" th:text="${tag.name} + ' (' + ${#lists.size(tag.items)} + ')'">Java</a></li>
           <li><a href="#">Lisp</a></li>
           <li><a href="#">Node</a></li>
           <li><a href="#">JavaScript</a></li>

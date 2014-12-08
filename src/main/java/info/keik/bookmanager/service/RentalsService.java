@@ -7,11 +7,18 @@ import java.util.List;
 public interface RentalsService {
 
     /**
-     * Returns all rentals
+     * Find all rentals
      * 
      * @return List of all rentals
      */
     public List<Rental> findAllRentals();
+
+    /**
+     * Find a rental by ID
+     * 
+     * @return A found rental
+     */
+    public Rental findRentalById(Integer rentalId);
 
     /**
      * Rent a stock
@@ -25,8 +32,8 @@ public interface RentalsService {
      * Return a stock
      * 
      * @param id
-     *            Book ID to delete
+     *            Rental ID to return
      */
-    public void returnStock(Integer stockId);
+    public Rental returnStock(Integer rentalId);
 
 }

@@ -24,8 +24,7 @@
       <section class="side">
         <section>
           <h2><span class="icon icon-search"></span> Search</h2>
-          <form action="stocks-list.html" method="get"
-                th:action="@{/stocks}">
+          <form action="stocks-index.html" th:action="@{/stocks}" method="get">
             <input id="query" type="text" name="q" th:value="${q}" />
           </form>
         </section>
@@ -50,8 +49,9 @@
 
       <section class="contents">
         <p sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
-          <a href="book-new.html" th:href="@{/stocks/new}" class="btn" style="text-align: left"><span class="icon icon-plus"></span> Add a new item</a>
-          <button id="delete-btn" class="btn btn-destroy" style="float: right;"><span class="icon icon-remove"></span> Delete selections</button>
+          <a href="stock-new.html" th:href="@{/stocks/new}" class="btn" style="text-align: left"><span class="icon icon-plus"></span> Add a new item</a>
+          <a id="js-delete-btn" class="btn btn-destroy" href="#" th:href="#js-delete-stocks-form" style="float: right;"><span class="icon icon-remove"></span> Delete selections</a>
+          <form th:id="js-delete-stocks-form" th:action="@{/stocks}" method="delete" style="display: none"></form>
         </p>
 
         <table>
@@ -66,10 +66,10 @@
           </thead>
           <tbody th:remove="all-but-first">
             <tr th:each="stock, itr : ${stocks}">
-              <td><input type="checkbox" name="selected" th:value="${stock.id}" /></td>
-              <td><a href="stock-show.html" th:href="@{'/stocks/' + ${stock.id}}"><span th:text="${stock.refNo}" th:remove="tag">Ref. No.</span></a></td>
-              <td><a href="stock-show.html" th:href="@{'/' + ${stock.type} + 's/' + ${stock.id}}"><span th:text="${stock.item.name}" th:remove="tag">Ref. No.</span></a></td>
-              <td><a href="stock-show.html" th:href="@{'/' + ${stock.type} + 's'}"><span th:text="${stock.type}" th:remove="tag">Ref. No.</span></a></td>
+              <td><input type="checkbox" name="selected" value="10" th:value="${stock.id}" /></td>
+              <td><a href="stock-show.html" th:href="@{'/stocks/' + ${stock.id}}"><span th:text="${stock.refNo}" th:remove="tag">11</span></a></td>
+              <td><a href="stock-show.html" th:href="@{'/' + ${stock.type} + 's/' + ${stock.id}}"><span th:text="${stock.item.name}" th:remove="tag">The title</span></a></td>
+              <td><a href="stock-show.html" th:href="@{'/' + ${stock.type} + 's'}"><span th:text="${stock.type}" th:remove="tag">Book</span></a></td>
               <td style="text-align: center;"><span th:text="${stock.isOnLoan} ? 'On loan' : Available" th:class="'label ' + (${stock.isOnLoan} ? label-disabled : label-info)">aaaa</span></td>
 
             </tr>
@@ -85,6 +85,6 @@
 
     <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
     <script src="../static/js/ui.js" th:src="@{/js/ui.js}"></script>
-    <script src="../static/js/books-list.js" th:src="@{/js/books-list.js}"></script>
+    <script src="../static/js/stocks-index.js" th:src="@{/js/stocks-index.js}"></script>
   </body>
 </html>

@@ -42,30 +42,6 @@ public class StocksServiceImpl implements StocksService {
 
     @Override
     @Transactional
-    public Stock rentStock(Integer stockId) {
-        Stock stock = stocksRepository.findOne(stockId);
-        if (stock.getIsOnLoan()) {
-            return null;
-        } else {
-            stock.setIsOnLoan(true);
-            return stock;
-        }
-    }
-
-    @Override
-    @Transactional
-    public Stock returnStock(Integer stockId) {
-        Stock stock = stocksRepository.findOne(stockId);
-        if (!stock.getIsOnLoan()) {
-            return null;
-        } else {
-            stock.setIsOnLoan(false);
-            return stock;
-        }
-    }
-
-    @Override
-    @Transactional
     public void deleteStock(Integer stockId) {
         stocksRepository.delete(stockId);
     }

@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/reltals")
+@RequestMapping("/rentals")
 public class RentalsController {
 
     @Autowired
@@ -27,9 +28,18 @@ public class RentalsController {
         return "rentals-index.html";
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable("id") Integer id, Model model) {
+        Rental rental = rentalsService.findRentalById(id);
+        model.addAttribute("rental", rental);
+        return "book-show.html";
+    }
+
     @RequestMapping(method = RequestMethod.POST)
-    public String create(@RequestParam("stockId") Integer stockId) {
+    public @ResponseBody String create(@RequestParam("stockId") Integer stockId) {
         rentalsService.rentStock(stockId);
+
+        // TODO design
         return null;
     }
 

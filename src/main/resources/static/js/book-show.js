@@ -107,7 +107,8 @@
 
       $.ajax({
         url: $form.attr('action'),
-        method: $form.atrr('method'),
+        method: $form.attr('method'),
+        data: $form.serialize(),
         headers: getCsrfHeader()
       }).done(function (newRental) {
 

@@ -26,23 +26,33 @@
           <tr>
             <th></th>
             <th>Id</th>
-            <th>Date</th>
-            <th>User</th>
-            <th>Ref. No.</th>
+            <th>Valid</th>
+            <th>Rentaled date</th>
+            <th>Returned date</th>
+            <th>Stock ID</th>
+            <th>Item name</th>
           </tr>
         </thead>
         <tbody th:remove="all-but-first">
           <tr th:each="rental, itr : ${rentals}">
             <td><input type="checkbox" name="selected" th:value="${rental.id}" /></td>
+            <td><span th:text="${rental.id}" th:remove="tag">11</span></td>
+            <td><span th:text="${rental.valid}" th:remove="tag">11</span></td>
+            <td><span th:text="${rental.rentaled}" th:remove="tag">11</span></td>
+            <td><span th:text="${rental.returned}" th:remove="tag">11</span></td>
+            <td><span th:text="${rental.stock.id}" th:remove="tag">11</span></td>
+            <td><span th:text="${rental.stock.item.name}" th:remove="tag">11</span></td>
           </tr>
         </tbody>
       </table>
 
-      <footer th:include="commons/footer.html">
-        <!--#include virtual="commons/footer.html" -->
-      </footer>
+    </div>
 
-      <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
-      <script src="../static/js/main.js" th:src="@{/js/ui.js}"></script>
+    <footer th:include="commons/footer.html">
+      <!--#include virtual="commons/footer.html" -->
+    </footer>
+
+    <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="../static/js/ui.js" th:src="@{/js/ui.js}"></script>
   </body>
 </html>

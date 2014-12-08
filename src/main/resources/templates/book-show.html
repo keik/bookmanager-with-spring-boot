@@ -32,23 +32,23 @@
 
         <section>
           <h3 class="sr-only">Tags</h3>
-          <button id="js-edit-tags-btn" class="btn" style="float: right"><span class="icon icon-pencil"></span></button>
-          <ul id="js-tags" class="list-inline" th:remove="all-but-first">
+          <ul id="js-tags" class="list-inline" th:remove="all-but-first" style="display: inline-block;">
             <li class="js-tag" th:each="tag, itr : ${book.tags}">
               <a href="stocks-index.html" th:href="@{'/stocks?q=tag:' + ${tag.name}}"><span class="icon icon-tags"></span> <span th:text="${tag.name}" th:remove="tag">Java</span></a>
-              <a class="js-form js-delete-tag-btn text-warn" th:href="'#js-delete-tag-form-' + ${tag.id}" style="display: none;"><span class="icon icon-cancel-circle"></span></a>
-              <form th:id="'js-delete-tag-form-' + ${tag.id}" th:action="@{'/books/' + ${book.id} + '/tags/' + ${tag.id}}" method="delete" style="display: none"></form>
+              <a class="js-delete-tag-btn text-warn" href="#" th:href="'#js-delete-tag-form-' + ${tag.id}" style="display: none;"><span class="icon icon-cancel-circle"></span></a>
+              <form th:id="'js-delete-tag-form-' + ${tag.id}" th:action="@{'/items/' + ${book.id} + '/tags/' + ${tag.id}}" method="delete" style="display: none"></form>
             </li>
           </ul>
           <script id="js-tag-template" type="text/template">
             <li class="js-tag">
-              <a th:href="@{'/books?q=tag:' + '{%- name %}'}"><span class="icon icon-tags"></span> {%- name %}</a>
-              <a class="js-form js-delete-tag-btn text-warn" th:href="'#js-delete-tag-form-{%- id %}'"><span class="icon icon-cancel-circle"></span></a>
-              <form th:id="'js-delete-tag-form-{%- id %}'" th:action="@{'/books/' + ${book.id} + '/tags/' + '{%- id %}'}" method="delete" style="display: none"></form>
+              <a th:href="@{'/stocks?q=tag:' + '{%- name %}'}"><span class="icon icon-tags"></span> {%- name %}</a>
+              <a class="js-delete-tag-btn text-warn" th:href="'#js-delete-tag-form-{%- id %}'"><span class="icon icon-cancel-circle"></span></a>
+              <form th:id="'js-delete-tag-form-{%- id %}'" th:action="@{'/items/' + ${book.id} + '/tags/' + '{%- id %}'}" method="delete" style="display: none"></form>
             </li>
           </script>
+          <button id="js-edit-tags-btn" class="btn">Edit tags</button>
           <form id="js-add-tag-form" style="display: none; width: 400px;"
-                action="#" th:action="@{'/books/' + ${book.id} + '/tags'}" method="post">
+                action="#" th:action="@{'/items/' + ${book.id} + '/tags'}" method="post">
             <input type="text" name="name" />
             <button class="btn btn-create" type="submit">Add</button>
             <button id="js-cancel-tags-btn" class="btn" type="button">Done</button>
@@ -65,11 +65,14 @@
           <p class="book-publisher">Publisher: <span th:text="${book.publisher}">The publisher</span></p>
         </section>
 
-        <form id="js-rental-form" th:action="@{/rental}" method="post">
+        <div th:unless="${book.stock.isOnLoan}" th:remove="tag">
+        <form id="js-rental-form" th:action="@{/rentals}" method="post">
+          <input type="hidden" name="stockId" th:value="${book.stock.id}" />
           <button class="btn btn-create">
             Rental now
           </button>
         </form>
+        </div>
 
         <section>
           <h3>Description</h3>
