@@ -31,7 +31,7 @@ public class Comment implements Serializable {
 
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
+    private Date createdAt;
 
     public Comment() {
     }
@@ -47,7 +47,7 @@ public class Comment implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        created = new Date();
+        createdAt = new Date();
     }
 
     public Integer getId() {
@@ -74,12 +74,12 @@ public class Comment implements Serializable {
         this.item = item;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

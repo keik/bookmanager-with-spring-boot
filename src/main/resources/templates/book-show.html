@@ -65,8 +65,8 @@
           <p class="book-publisher">Publisher: <span th:text="${book.publisher}">Javavavaan Publishing</span></p>
         </section>
 
-        <p th:unless="${book.stock.isOnLoan}" th:remove="tag">
-          <a href="rental-new.html" th:href="TODO /rentals/new}({book.stock.id})" class="btn btn-create" >Rental now</a>
+        <p th:unless="${book.stock.isOnLoan}">
+          <a href="rental-new.html" th:href="@{/rentals/new(stock_id=${book.stock.id})}" class="btn btn-create" >Rental now</a>
         </p>
 
         <section>

@@ -36,7 +36,7 @@ public class Item implements Serializable {
     protected String name;
 
     @OneToMany(mappedBy = "item")
-    @OrderBy(value = "created")
+    @OrderBy(value = "createdAt")
     private List<Comment> comments = new ArrayList<Comment>();
 
     @ManyToMany(targetEntity = Tag.class, cascade = CascadeType.ALL)

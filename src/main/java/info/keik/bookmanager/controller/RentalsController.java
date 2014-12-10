@@ -2,10 +2,13 @@ package info.keik.bookmanager.controller;
 
 import info.keik.bookmanager.model.Rental;
 import info.keik.bookmanager.service.RentalsService;
+import info.keik.bookmanager.service.StocksService;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +24,9 @@ public class RentalsController {
     @Autowired
     RentalsService rentalsService;
 
+    @Autowired
+    StocksService stocksService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model) {
         List<Rental> rentals = rentalsService.findAllRentals();
@@ -35,17 +41,23 @@ public class RentalsController {
         return "book-show.html";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody String create(@RequestParam("stockId") Integer stockId) {
-        rentalsService.rentStock(stockId);
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public String new_(@RequestParam("stock_id") Integer stockId, Model model) {
+        model.addAttribute(stocksService.findStockById(stockId));
+        return "rental-new.html";
+    }
 
-        // TODO design
-        return null;
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody String create(
+            @RequestParam("stock_id") Integer stockId,
+            @RequestParam("due_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dueDate) {
+        rentalsService.rentStock(stockId, dueDate);
+        return "account-show.html";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, params = "method=put")
     public String update(@PathVariable("id") Integer rentalId) {
-        rentalsService.returnStock(rentalId);
+        rentalsService.returnRental(rentalId);
         return null;
     }
 

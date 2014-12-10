@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title th:text="Rental | ' + #{app.name}">Rental | Bookmanager</title>
+    <title th:text="'Rental | ' + #{app.name}">Rental | Bookmanager</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -24,20 +24,22 @@
       <section>
         <h2>Rental</h2>
         <form class="centered-form" action="account.html" th:action="@{/rentals}" method="post">
-        <ul>
-          <li>
-            <label for="ref-no">Item</label><span class="static">JAVA + YOU</span>
-          </li>
-          <li>
-            <label for="ref-no">Type</label><span class="static">Book</span>
-          </li>
-          <li>
-            <label for="name">Due date</label><input id="due-date" type="text" placeholder="Due date" name="TODO datepicker" />
-          </li>
-          <li>
-            <label></label><input class="btn btn-create" type="submit" value="Rental" />
-          </li>
-        </ul>
+          <ul>
+            <li>
+              <label>Item</label><span class="static"><span th:text="${stock.item.name}" th:remove="tag">JAVA + YOU</span></span>
+              <input type="hidden" name="stock_id" th:value="${stock.id}" />
+            </li>
+            <li>
+              <label>Type</label><span class="static"><span th:text="${stock.type}" th:remove="tag">Book</span></span>
+            </li>
+            <li>
+              <label for="due-date">Due date</label><input id="due-date" type="text" placeholder="Due date" name="due_date" data-todo="TODO datepicker" />
+            </li>
+            <li>
+              <label></label><input class="btn btn-create" type="submit" value="Rental" />
+            </li>
+          </ul>
+        </form>
       </section>
 
     </div>

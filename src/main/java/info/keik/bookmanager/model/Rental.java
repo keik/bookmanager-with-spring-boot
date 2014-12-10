@@ -25,11 +25,15 @@ public class Rental implements Serializable {
 
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date rentaled;
+    private Date dueDate;
 
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date returned;
+    private Date rentaledAt;
+
+    @Column(updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date returnedAt;
 
     @Column
     private Boolean valid;
@@ -45,7 +49,7 @@ public class Rental implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        rentaled = new Date();
+        rentaledAt = new Date();
     }
 
     @Override
@@ -61,20 +65,28 @@ public class Rental implements Serializable {
         this.id = id;
     }
 
-    public Date getRentaled() {
-        return rentaled;
+    public Date getDueDate() {
+        return dueDate;
     }
 
-    public void setRentaled(Date rentaled) {
-        this.rentaled = rentaled;
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public Date getReturned() {
-        return returned;
+    public Date getRentaledAt() {
+        return rentaledAt;
     }
 
-    public void setReturned(Date returned) {
-        this.returned = returned;
+    public void setRentaledAt(Date rentaledAt) {
+        this.rentaledAt = rentaledAt;
+    }
+
+    public Date getReturnedAt() {
+        return returnedAt;
+    }
+
+    public void setReturnedAt(Date returnedAt) {
+        this.returnedAt = returnedAt;
     }
 
     public Boolean getValid() {

@@ -2,6 +2,7 @@ package info.keik.bookmanager.service;
 
 import info.keik.bookmanager.model.Rental;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RentalsService {
@@ -25,8 +26,10 @@ public interface RentalsService {
      * 
      * @param stockId
      *            Stock ID to rent
+     * @param dueDate
+     *            Due date
      */
-    public Rental rentStock(Integer stockId);
+    public Rental rentStock(Integer stockId, Date dueDate);
 
     /**
      * Return a stock
@@ -34,6 +37,6 @@ public interface RentalsService {
      * @param id
      *            Rental ID to return
      */
-    public Rental returnStock(Integer rentalId);
+    public Rental returnRental(Integer rentalId);
 
 }

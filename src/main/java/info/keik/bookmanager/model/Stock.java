@@ -99,6 +99,15 @@ public class Stock implements Serializable {
     public List<Rental> getRentals() {
         return rentals;
     }
+    
+    public void addRental(Rental rental) {
+        if (!getRentals().contains(rental)) {
+            getRentals().add(rental);
+        }
+        if (rental.getStock() != this) {
+            rental.setStock(this);
+        }
+    }
 
     public void addComment(Rental rental) {
         if (!getRentals().contains(rental)) {
