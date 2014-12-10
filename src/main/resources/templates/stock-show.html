@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title th:text="'Stock #' + ${stock.id} + 'details | ' + #{app.name}">Stock #11 details | Bookmanager</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+
+    <link rel="stylesheet" href="../static/fonts/style.css" th:href="@{/fonts/style.css}" />
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+
+    <header th:include="commons/header.html">
+      <!--#include virtual="commons/header.html" -->
+    </header>
+
+    <div class="container">
+
+      <section>
+        <h2>Stock #<span th:text="TODO" th:remove="tag">11</span></h2>
+
+        <dl>
+          <dt>Item</dt><dd th:text="TODO"><a href="book-show.html" th:href="TODO">JAVA + YOU</a></dd>
+          <dt>Added at</dt><dd th:text="TODO">2014-10-01</dd>
+        </dl>
+
+        <section>
+          <h3>Rentaled history</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Rental ID</th>
+                <th>Rentaled by</th>
+                <th>Rentaled at</th>
+                <th>Returned at</th>
+              </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+              <tr th:each="rental, itr : ${rentals}">
+                <td><span th:value="${rental.id}">33</span></td>
+                <td><a href="user-show.html" th:href="@{'/users/' + ${rental.user.id}}"><span th:text="${stock.user.id}" th:remove="tag">KINOMOTO Sakura</span></a></td>
+                <td th:text="${rental.rentaledAt}">2014-12-10</td>
+                <td th:text="${rental.returnedAt}">2014-12-20</td>
+              </tr>
+              <tr>
+                <td>36</td>
+                <td><a href="user-show.html">DAIDOJI Tomoyo</td>
+                <td>2014-12-25</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+    </div>
+
+    <footer th:include="commons/footer.html">
+      <!--#include virtual="commons/footer.html" -->
+    </footer>
+
+    <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="../static/js/ui.js" th:src="@{/js/ui.js}"></script>
+  </body>
+</html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title th:text="'Details | ' + #{app.name}"></title>
+    <title th:text="'Item details | ' + #{app.name}">Item details | Bookmanager</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -28,7 +28,7 @@
           <a href="book-edit.html" th:href="@{'/books/' + ${book.id} + '/edit'}" class="btn"><span class="icon icon-pencil"> Edit this book</span></a>
         </p>
 
-        <h2 class="book-name" th:text="${book.name}">The name</h2>
+        <h2 class="book-name" th:text="${book.name}">JAVA + YOU</h2>
 
         <section>
           <h3 class="sr-only">Tags</h3>
@@ -57,22 +57,17 @@
 
         <section>
           <h3 class="sr-only">Authors</h3>
-          <p class="book-authors">Authors: <span th:text="${book.author}">The author</span></p>
+          <p class="book-authors">Authors: <span th:text="${book.author}">Java J. Javaman</span></p>
         </section>
 
         <section>
           <h3 class="sr-only">Publisher</h3>
-          <p class="book-publisher">Publisher: <span th:text="${book.publisher}">The publisher</span></p>
+          <p class="book-publisher">Publisher: <span th:text="${book.publisher}">Javavavaan Publishing</span></p>
         </section>
 
-        <div th:unless="${book.stock.isOnLoan}" th:remove="tag">
-        <form id="js-rental-form" th:action="@{/rentals}" method="post">
-          <input type="hidden" name="stockId" th:value="${book.stock.id}" />
-          <button class="btn btn-create">
-            Rental now
-          </button>
-        </form>
-        </div>
+        <p th:unless="${book.stock.isOnLoan}" th:remove="tag">
+          <a href="rental-new.html" th:href="TODO /rentals/new}({book.stock.id})" class="btn btn-create" >Rental now</a>
+        </p>
 
         <section>
           <h3>Description</h3>
@@ -90,10 +85,10 @@
         <article class="js-comment" th:each="comment, itr : ${book.comments}" style="margin-bottom: 12px; border-bottom: 1px solid #ccc;">
           <button class="btn js-edit-comment-btn" style="float: right;"><span class="icon icon-pencil"></span></button>
           <p th:text="'{TODO display user name}'">
-            User name
+            Javie
           </p>
           <p class="js-comment-content" th:text="${comment.content}">
-            This is comments.
+            Java is surely a philosophy, I've trusted in...
           </p>
           <form class="js-edit-comment-form vertical-box" style="display: none; width: 400px;"
                 action="#" th:action="@{'/books/' + ${book.id} + '/comments/' + ${comment.id}(method=put)}" method="post">

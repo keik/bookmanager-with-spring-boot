@@ -1,10 +1,11 @@
 'use strict';
 
+/* global _ */
 (function () {
 
-  _.templateSettings.escape = /{%-([\s\S]+?)%}/g,
-  _.templateSettings.evaluate = /{%([\s\S]+?)%}/g,
-  _.templateSettings.interpolate = /{%=([\s\S]+?)%}/g,
+  _.templateSettings.escape = /{%-([\s\S]+?)%}/g;
+  _.templateSettings.evaluate = /{%([\s\S]+?)%}/g;
+  _.templateSettings.interpolate = /{%=([\s\S]+?)%}/g;
 
   $(function init() {
 
@@ -13,9 +14,6 @@
     $('#js-add-tag-form').on('submit', handlers.onSubmitAddTagForm);
     $(document).on('click', '.js-delete-tag-btn', handlers.onClickDeleteTagBtn);
     $('#js-cancel-tags-btn').on('click', handlers.onClickCancelTagsBtn);
-
-    // Rental operation
-    $('#js-rental-form').on('submit', handlers.onSubmitRentalBtn);
 
     // Comments operation
     $(document).on('click',  '.js-edit-comment-btn',   handlers.onClickEditCommentBtn);
@@ -95,31 +93,6 @@
 
       $('#js-add-tag-form').hide();
       $('.js-delete-tag-btn').hide();
-    },
-
-    /**
-     * Rental a book
-     */
-    onSubmitRentalBtn: function (e) {
-      e.preventDefault();
-
-      var $form = $(this);
-
-      $.ajax({
-        url: $form.attr('action'),
-        method: $form.attr('method'),
-        data: $form.serialize(),
-        headers: getCsrfHeader()
-      }).done(function (newRental) {
-
-        // TODO
-        console.log('success', newRental);
-      }).fail(function (xhr) {
-
-        // TODO
-        console.log(xhr);
-        alert('Something wrong');
-      });
     },
 
     /**

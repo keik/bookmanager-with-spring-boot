@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title th:text="'User #' + ${stock.id} + 'details | ' + #{app.name}">User #11 details | Bookmanager</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+
+    <link rel="stylesheet" href="../static/fonts/style.css" th:href="@{/fonts/style.css}" />
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+
+    <header th:include="commons/header.html">
+      <!--#include virtual="commons/header.html" -->
+    </header>
+
+    <div class="container">
+
+      <section>
+        <h2>User #<span th:text="TODO" th:remove="tag">1</span></h2>
+
+        <dl>
+          <dt>Name</dt><dd th:text="${user.name}">KINOMOTO Sakura</dd>
+          <dt>e-mail</dt><dd th:text="${user.name}">ksakura@tomoeda.ac.jp</dd>
+          <dt>Registered at</dt><dd th:text="${user.name}">2014-11-01</dd>
+        </dl>
+
+        <section>
+          <h3>Activities</h3>
+          <table>
+            <thead>
+              <tr>
+                <th th:text="TODO">Rental ID</th>
+                <th th:text="TODO">Stock</th>
+                <th th:text="TODO">Item</th>
+                <th th:text="TODO">Rentaled at</th>
+                <th th:text="TODO">Returned at</th>
+            </thead>
+            <tbody>
+              <tr th:each="rental, itr : ${user.rentals}">
+                <td th:text="TODO">33</td>
+                <th th:text="TODO"><a href="stock-show.html">11</a></th>
+                <td th:text="TODO"><a href="book-show.html">JAVA + YOU</a></td>
+                <td th:text="TODO">2014-12-10</td>
+                <td th:text="TODO">2014-12-20</td>
+              </tr>
+              <tr>
+                <td>88</td>
+                <th><a href="stock-show.html">99</a></th>
+                <td><a href="book-show.html">The LITTLE PISCHNA</a></td>
+                <td>2014-12-23</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+
+        </section>
+      </section>
+
+    </div>
+
+    <footer th:include="commons/footer.html">
+      <!--#include virtual="commons/footer.html" -->
+    </footer>
+
+    <script src="../static/vendor/jquery/jquery.js" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="../static/js/ui.js" th:src="@{/js/ui.js}"></script>
+  </body>
+</html>

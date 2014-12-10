@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title th:text="'Search results | ' + #{app.name}"></title>
+    <title th:text="'Search results | ' + #{app.name}">Search results | Bookmanager</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -68,10 +68,16 @@
             <tr th:each="stock, itr : ${stocks}">
               <td><input type="checkbox" name="selected" value="10" th:value="${stock.id}" /></td>
               <td><a href="stock-show.html" th:href="@{'/stocks/' + ${stock.id}}"><span th:text="${stock.refNo}" th:remove="tag">11</span></a></td>
-              <td><a href="stock-show.html" th:href="@{'/' + ${stock.type} + 's/' + ${stock.id}}"><span th:text="${stock.item.name}" th:remove="tag">The title</span></a></td>
-              <td><a href="stock-show.html" th:href="@{'/' + ${stock.type} + 's'}"><span th:text="${stock.type}" th:remove="tag">Book</span></a></td>
-              <td style="text-align: center;"><span th:text="${stock.isOnLoan} ? 'On loan' : Available" th:class="'label ' + (${stock.isOnLoan} ? label-disabled : label-info)">aaaa</span></td>
-
+              <td><a href="book-show.html" th:href="@{'/' + ${stock.type} + 's/' + ${stock.id}}"><span th:text="${stock.item.name}" th:remove="tag">JAVA + YOU</span></a></td>
+              <td><span th:text="${stock.type}" th:remove="tag">Book</span></td>
+              <td style="text-align: center;"><span class="label label-info" th:text="${stock.isOnLoan} ? 'On loan' : Available" th:class="'label ' + (${stock.isOnLoan} ? label-disabled : label-info)">Available</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" name="selected" value="10" /></td>
+              <td><a href="stock-show.html">12</a></td>
+              <td><a href="book-show.html">Java is a philosophy</a></td>
+              <td>Book</td>
+              <td style="text-align: center;"><span class="label label-disabled">On loan</span></td>
             </tr>
           </tbody>
         </table>

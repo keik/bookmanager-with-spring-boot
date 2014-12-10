@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title th:text="'Add a new stock | ' + #{app.name}"></title>
+    <title th:text="'Add a new stock | ' + #{app.name}">Add a new stock | Bookmanager</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -18,9 +18,9 @@
 
     <div class="container">
 
-      <form class="centered-form" action="stocks-index.html" th:action="@{/stocks}" method="post">
-        <section>
-          <h3>Add a new stock</h3>
+      <section>
+        <h2>Add a new stock</h2>
+        <form class="centered-form" action="stocks-index.html" th:action="@{/stocks}" method="post">
           <ul>
             <li>
               <label for="ref-no">Ref. No.</label><input id="ref-no" type="text" placeholder="Ref. No." name="refNo" />
@@ -45,8 +45,8 @@
               <label></label><input class="btn btn-create" type="submit" value="Add" />
             </li>
           </ul>
-        </section>
-      </form>
+        </form>
+      </section>
 
     </div>
 

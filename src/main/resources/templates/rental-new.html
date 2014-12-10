@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title th:text="'All tags | ' + #{app.name}">All tags | Bookmanager</title>
+    <title th:text="Rental | ' + #{app.name}">Rental | Bookmanager</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -22,16 +22,24 @@
     <div class="container">
 
       <section>
-        <h2>All tags (<span th:text="${#lists.size(tags)}" th:remove="tag">6</span>)</h2>
-        <ul class="list-inline list-4-columns" th:remove="all-but-first">
-          <li th:each="tag, itr : ${tags}"><a href="#" th:href="@{'/stocks?q=tag:' + ${tag.name}}" th:text="${tag.name} + ' (' + ${#lists.size(tag.items)} + ')'">Java</a></li>
-          <li><a href="#">Lisp</a></li>
-          <li><a href="#">Node</a></li>
-          <li><a href="#">JavaScript</a></li>
-          <li><a href="#">Redis</a></li>
-          <li><a href="#">シェルスクリプト</a></li>
+        <h2>Rental</h2>
+        <form class="centered-form" action="account.html" th:action="@{/rentals}" method="post">
+        <ul>
+          <li>
+            <label for="ref-no">Item</label><span class="static">JAVA + YOU</span>
+          </li>
+          <li>
+            <label for="ref-no">Type</label><span class="static">Book</span>
+          </li>
+          <li>
+            <label for="name">Due date</label><input id="due-date" type="text" placeholder="Due date" name="TODO datepicker" />
+          </li>
+          <li>
+            <label></label><input class="btn btn-create" type="submit" value="Rental" />
+          </li>
         </ul>
       </section>
+
     </div>
 
     <footer th:include="commons/footer.html">
