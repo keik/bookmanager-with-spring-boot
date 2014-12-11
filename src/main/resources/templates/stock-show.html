@@ -22,13 +22,13 @@
     <div class="container">
 
       <section>
-        <h2>Stock #<span th:text="TODO" th:remove="tag">11</span></h2>
+        <h2>Stock #<span th:text="${stock.id}" th:remove="tag">11</span></h2>
 
         <dl>
-          <dt>Item</dt><dd th:text="TODO"><a href="book-show.html" th:href="TODO">JAVA + YOU</a></dd>
-          <dt>Added at</dt><dd th:text="TODO">2014-10-01</dd>
+          <dt>Item</dt><dd><a href="book-show.html" th:href="@{'/' + ${stock.type} + 's/' + ${stock.item.id}}" th:text="${stock.item.name}">JAVA + YOU</a></dd>
+          <dt>Added at</dt><dd th:text="${stock.addedAt}">2014-10-01</dd>
+          <dt>Status</dt><dd><label class="label label-info" th:class="'label ' + (${stock.isOnLoan} ? label-disabled : label-info)" th:text="${stock.isOnLoan} ? 'On loan' : Available">Available</label></dd>
         </dl>
-
         <section>
           <h3>Rentaled history</h3>
           <table>
@@ -41,15 +41,15 @@
               </tr>
             </thead>
             <tbody th:remove="all-but-first">
-              <tr th:each="rental, itr : ${rentals}">
+              <tr th:each="rental, itr : ${stock.rentals}">
                 <td><span th:value="${rental.id}">33</span></td>
-                <td><a href="user-show.html" th:href="@{'/users/' + ${rental.user.id}}"><span th:text="${stock.user.id}" th:remove="tag">KINOMOTO Sakura</span></a></td>
-                <td th:text="${rental.rentaledAt}">2014-12-10</td>
-                <td th:text="${rental.returnedAt}">2014-12-20</td>
+                <td><a href="user-show.html" th:href="@{'/users/' + 'TODO'}"><span th:text="${'TODO stock.user.id'}" th:remove="tag">KINOMOTO Sakura</span></a></td>
+                <td th:text="${#calendars.format(rental.rentaledAt, 'YYYY-MM-dd')}">2014-12-10</td>
+                <td th:text="${rental.returnedAt} ? ${rental.returnedAt} : '-'">2014-12-20</td>
               </tr>
               <tr>
                 <td>36</td>
-                <td><a href="user-show.html">DAIDOJI Tomoyo</td>
+                <td><a href="user-show.html">DAIDOJI Tomoyo</a></td>
                 <td>2014-12-25</td>
                 <td>-</td>
               </tr>

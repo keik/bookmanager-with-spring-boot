@@ -34,7 +34,7 @@ public class BooksController {
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, params = "method=put")
     public String update(Book book) {
         booksService.updateBook(book);
-        return "redirect:/books";
+        return "redirect:/stocks";
     }
 
 }

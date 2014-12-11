@@ -11,6 +11,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +29,11 @@ public class StocksController {
     @Autowired
     BooksService booksService;
 
+    @InitBinder
+    public void disallowedFieldBinder(WebDataBinder binder) {
+        // binder.setDisallowedFields("id");
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public String index(Model model,
             @RequestParam(value = "q", required = false) String q) {
@@ -39,6 +46,12 @@ public class StocksController {
         return "stocks-index.html";
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String show(Model model, @PathVariable("id") Integer stockId) {
+        model.addAttribute(stocksService.findStockById(stockId));
+        return "stock-show.html";
+    }
+
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String new_() {
         return "stock-new.html";
@@ -46,6 +59,9 @@ public class StocksController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String create(Stock stock, Book book) {
+        // TODO cannot persist book caused by null fields, but Java object have
+        // values properly...
+        book.setId(null);
         stock.setItem(book);
         stocksService.addStock(stock);
         return "redirect:/stocks";

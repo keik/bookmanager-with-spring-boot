@@ -97,7 +97,7 @@
             <button class="btn js-cancel-comment-btn" type="button">Cancel</button>
           </form>
           <p>
-            Posted at <span th:text="${#calendars.format(comment.created, 'MMM d, YYYY, hh:mm')}">MMM d, YYYY, hh:mm</span>
+            Posted at <span th:text="${#calendars.format(comment.createdAt, 'MMM d, YYYY, hh:mm')}">MMM d, YYYY, hh:mm</span>
           </p>
         </article>
 

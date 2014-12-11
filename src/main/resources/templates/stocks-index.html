@@ -50,7 +50,7 @@
       <section class="contents">
         <p sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
           <a href="stock-new.html" th:href="@{/stocks/new}" class="btn" style="text-align: left"><span class="icon icon-plus"></span> Add a new item</a>
-          <a id="js-delete-btn" class="btn btn-destroy" href="#" th:href="#js-delete-stocks-form" style="float: right;"><span class="icon icon-remove"></span> Delete selections</a>
+          <a id="js-delete-btn" class="btn btn-destroy" href="#" th:href="@{#js-delete-stocks-form}" style="float: right;"><span class="icon icon-remove"></span> Delete selections</a>
           <form th:id="js-delete-stocks-form" th:action="@{/stocks}" method="delete" style="display: none"></form>
         </p>
 
@@ -67,8 +67,8 @@
           <tbody th:remove="all-but-first">
             <tr th:each="stock, itr : ${stocks}">
               <td><input type="checkbox" name="selected" value="10" th:value="${stock.id}" /></td>
-              <td><a href="stock-show.html" th:href="@{'/stocks/' + ${stock.id}}"><span th:text="${stock.refNo}" th:remove="tag">11</span></a></td>
-              <td><a href="book-show.html" th:href="@{'/' + ${stock.type} + 's/' + ${stock.id}}"><span th:text="${stock.item.name}" th:remove="tag">JAVA + YOU</span></a></td>
+              <td><a href="stock-show.html" th:href="@{'/stocks/' + ${stock.id}}"><span th:text="${stock.id}" th:remove="tag">11</span></a></td>
+              <td><a href="book-show.html" th:href="@{'/' + ${stock.type} + 's/' + ${stock.item.id}}"><span th:text="${stock.item.name}" th:remove="tag">JAVA + YOU</span></a></td>
               <td><span th:text="${stock.type}" th:remove="tag">Book</span></td>
               <td style="text-align: center;"><span class="label label-info" th:text="${stock.isOnLoan} ? 'On loan' : Available" th:class="'label ' + (${stock.isOnLoan} ? label-disabled : label-info)">Available</span></td>
             </tr>

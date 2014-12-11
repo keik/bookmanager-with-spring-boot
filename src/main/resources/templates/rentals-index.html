@@ -28,28 +28,28 @@
             <tr>
               <th>Rental ID</th>
               <th>Status</th>
-              <th>Rentaled date</th>
-              <th>Returned date</th>
               <th>Ref. No.</th>
               <th>Item name</th>
+              <th>Rentaled date</th>
+              <th>Returned date</th>
             </tr>
           </thead>
           <tbody th:remove="all-but-first">
             <tr th:each="rental, itr : ${rentals}">
               <td><span th:text="${rental.id}" th:remove="tag">33</span></td>
-              <td><span th:text="${rental.valid}" th:remove="tag">Inactive</span></td>
-              <td><span th:text="${rental.rentaled}" th:remove="tag">2014-12-10</td>
-              <td><span th:text="${rental.returned}" th:remove="tag">2014-12-20</span></td>
-              <td><a href="stock-show.html">1</a></td>
+              <td><span th:text="${rental.valid} ? Active : Inactive" th:remove="tag">Inactive</span></td>
+              <td><a href="stock-show.html" th:href="@{'/stocks/' + ${rental.stock.id}}" th:text="${rental.stock.id}">1</a></td>
               <td><a href="book-show.html" th:href="TODO"><span th:text="${rental.stock.item.name}" th:remove="tag">JAVA + YOU</span></a></td>
+              <td><span th:text="${#calendars.format(rental.rentaledAt, 'YYYY-MM-dd')}" th:remove="tag">2014-12-10</span></td>
+              <td><span th:text="${rental.returnedAt} ? ${rental.rentaledAt} : '-'" th:remove="tag">2014-12-20</span></td>
             </tr>
             <tr>
               <td>36</td>
               <td>Active</td>
-              <td>2014-12-25</td>
-              <td>-</td>
               <td><a href="stock-show.html">1</a></td>
               <td><a href="book-show.html">JAVA + YOU</a></td>
+              <td>2014-12-25</td>
+              <td>-</td>
             </tr>
           </tbody>
         </table>

@@ -2,15 +2,18 @@ package info.keik.bookmanager.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
@@ -20,17 +23,17 @@ public class Stock implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
     private Integer id;
-
-    @Column(nullable = false, unique = true)
-    private Integer refNo;
 
     @Column(nullable = false)
     private String type;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private Item item;
+
+    @Column(updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date addedAt;
 
     @Column(nullable = false)
     private Boolean isOnLoan = true;
@@ -41,10 +44,15 @@ public class Stock implements Serializable {
     public Stock() {
     }
 
-    public Stock(Integer refNo, String type, Item item) {
-        this.refNo = refNo;
+    public Stock(Integer id, String type, Item item) {
+        this.id = id;
         this.type = type;
         this.item = item;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        addedAt = new Date();
     }
 
     @Override
@@ -58,14 +66,6 @@ public class Stock implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getRefNo() {
-        return refNo;
-    }
-
-    public void setRefNo(Integer refNo) {
-        this.refNo = refNo;
     }
 
     public String getType() {
@@ -84,6 +84,14 @@ public class Stock implements Serializable {
         this.item = item;
     }
 
+    public Date getAddedAt() {
+        return addedAt;
+    }
+
+    public void setAddedAt(Date addedAt) {
+        this.addedAt = addedAt;
+    }
+
     public Boolean getIsOnLoan() {
         return isOnLoan;
     }
@@ -99,7 +107,7 @@ public class Stock implements Serializable {
     public List<Rental> getRentals() {
         return rentals;
     }
-    
+
     public void addRental(Rental rental) {
         if (!getRentals().contains(rental)) {
             getRentals().add(rental);

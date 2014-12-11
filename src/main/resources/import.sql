@@ -24,18 +24,18 @@ INSERT INTO book (id, author, publisher) VALUES (10, '上田 隆一', 'KADOKAWA 
 INSERT INTO book (id, author, publisher) VALUES (11, '結城 浩', 'ソフトバンククリエイティブ');
 INSERT INTO book (id, author, publisher) VALUES (12, '渡辺 修司', '技術評論社');
 
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 11, 'book',  1, false);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 12, 'book',  2, false);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 13, 'book',  3,  true);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 14, 'book',  4, false);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 15, 'book',  5, false);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 16, 'book',  6,  true);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 17, 'book',  7, false);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 18, 'book',  8,  true);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES ( 19, 'book',  9, false);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES (110, 'book', 10, false);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES (111, 'book', 11,  true);
-INSERT INTO stock (ref_no, type, item_id, is_on_loan) VALUES (112, 'book', 12, false);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 11, 'book',  1, '2014-11-01 00:00:00.000000000', false);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 12, 'book',  2, '2014-11-01 00:00:00.000000000', false);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 13, 'book',  3, '2014-11-01 00:00:00.000000000',  true);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 14, 'book',  4, '2014-11-01 00:00:00.000000000', false);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 15, 'book',  5, '2014-11-01 00:00:00.000000000', false);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 16, 'book',  6, '2014-11-01 00:00:00.000000000',  true);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 17, 'book',  7, '2014-11-01 00:00:00.000000000', false);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 18, 'book',  8, '2014-11-01 00:00:00.000000000',  true);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES ( 19, 'book',  9, '2014-11-01 00:00:00.000000000', false);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES (110, 'book', 10, '2014-11-01 00:00:00.000000000', false);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES (111, 'book', 11, '2014-11-01 00:00:00.000000000',  true);
+INSERT INTO stock (id, type, item_id, added_at, is_on_loan) VALUES (112, 'book', 12, '2014-11-01 00:00:00.000000000', false);
 
 INSERT INTO tag (name) VALUES ('Java')
 INSERT INTO tag (name) VALUES ('Node')
